@@ -1,0 +1,98 @@
+<?php defined('SYSPATH') OR die('No direct script access.'); ?>
+
+2016-08-15 09:57:22 --- EMERGENCY: ErrorException [ 8 ]: Undefined index: date ~ APPPATH/classes/Model/Ipra.php [ 329 ] in /var/www/msexml.lsbr.ru/application/classes/Model/Ipra.php:329
+2016-08-15 09:57:22 --- DEBUG: #0 /var/www/msexml.lsbr.ru/application/classes/Model/Ipra.php(329): Kohana_Core::error_handler(8, 'Undefined index...', '/var/www/msexml...', 329, Array)
+#1 /var/www/msexml.lsbr.ru/application/classes/Controller/Ajax.php(105): Model_Ipra::UpdPersonsIpraFull(Array)
+#2 /var/www/msexml.lsbr.ru/system/classes/Kohana/Controller.php(84): Controller_Ajax->action_lpuipraeditformrecord()
+#3 [internal function]: Kohana_Controller->execute()
+#4 /var/www/msexml.lsbr.ru/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Ajax))
+#5 /var/www/msexml.lsbr.ru/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#6 /var/www/msexml.lsbr.ru/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#7 /var/www/msexml.lsbr.ru/index.php(118): Kohana_Request->execute()
+#8 {main} in /var/www/msexml.lsbr.ru/application/classes/Model/Ipra.php:329
+2016-08-15 09:58:21 --- EMERGENCY: ErrorException [ 8 ]: Undefined index: date ~ APPPATH/classes/Model/Ipra.php [ 329 ] in /var/www/msexml.lsbr.ru/application/classes/Model/Ipra.php:329
+2016-08-15 09:58:21 --- DEBUG: #0 /var/www/msexml.lsbr.ru/application/classes/Model/Ipra.php(329): Kohana_Core::error_handler(8, 'Undefined index...', '/var/www/msexml...', 329, Array)
+#1 /var/www/msexml.lsbr.ru/application/classes/Controller/Ajax.php(105): Model_Ipra::UpdPersonsIpraFull(Array)
+#2 /var/www/msexml.lsbr.ru/system/classes/Kohana/Controller.php(84): Controller_Ajax->action_lpuipraeditformrecord()
+#3 [internal function]: Kohana_Controller->execute()
+#4 /var/www/msexml.lsbr.ru/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Ajax))
+#5 /var/www/msexml.lsbr.ru/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#6 /var/www/msexml.lsbr.ru/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#7 /var/www/msexml.lsbr.ru/index.php(118): Kohana_Request->execute()
+#8 {main} in /var/www/msexml.lsbr.ru/application/classes/Model/Ipra.php:329
+2016-08-15 16:55:43 --- EMERGENCY: Kohana_Exception [ 0 ]: Untrusted host 10.36.0.230. If you trust 10.36.0.230, add it to the trusted hosts in the `url` config file. ~ SYSPATH/classes/Kohana/URL.php [ 107 ] in /var/www/ipra/system/classes/Kohana/URL.php:144
+2016-08-15 16:55:43 --- DEBUG: #0 /var/www/ipra/system/classes/Kohana/URL.php(144): Kohana_URL::base(true, false)
+#1 /var/www/ipra/system/classes/Kohana/HTTP/Exception/Redirect.php(29): Kohana_URL::site('/users', true, false)
+#2 /var/www/ipra/system/classes/Kohana/HTTP.php(40): Kohana_HTTP_Exception_Redirect->location('/users')
+#3 /var/www/ipra/system/classes/Kohana/Controller.php(127): Kohana_HTTP::redirect('/users', 302)
+#4 /var/www/ipra/application/classes/Controller/Tmp.php(14): Kohana_Controller::redirect('/users')
+#5 /var/www/ipra/system/classes/Kohana/Controller.php(69): Controller_Tmp->before()
+#6 [internal function]: Kohana_Controller->execute()
+#7 /var/www/ipra/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Lpu))
+#8 /var/www/ipra/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#9 /var/www/ipra/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#10 /var/www/ipra/index.php(118): Kohana_Request->execute()
+#11 {main} in /var/www/ipra/system/classes/Kohana/URL.php:144
+2016-08-15 17:44:51 --- EMERGENCY: Database_Exception [ 0 ]: could not find driver ~ MODPATH/database/classes/Kohana/Database/PDO.php [ 59 ] in /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php:248
+2016-08-15 17:44:51 --- DEBUG: #0 /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php(248): Kohana_Database_PDO->connect()
+#1 /var/www/ipra/modules/database/classes/Kohana/Database.php(478): Kohana_Database_PDO->escape('elizhenin')
+#2 /var/www/ipra/modules/database/classes/Kohana/Database/Query/Builder.php(116): Kohana_Database->quote('elizhenin')
+#3 /var/www/ipra/modules/database/classes/Kohana/Database/Query/Builder/Select.php(372): Kohana_Database_Query_Builder->_compile_conditions(Object(Database_PDO), Array)
+#4 /var/www/ipra/modules/database/classes/Kohana/Database/Query.php(234): Kohana_Database_Query_Builder_Select->compile(Object(Database_PDO))
+#5 /var/www/ipra/application/classes/Model/Login.php(17): Kohana_Database_Query->execute()
+#6 /var/www/ipra/application/classes/Controller/Users.php(13): Model_Login::checkUser('elizhenin', 'Pass123')
+#7 /var/www/ipra/system/classes/Kohana/Controller.php(84): Controller_Users->action_login()
+#8 [internal function]: Kohana_Controller->execute()
+#9 /var/www/ipra/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Users))
+#10 /var/www/ipra/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#11 /var/www/ipra/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#12 /var/www/ipra/index.php(118): Kohana_Request->execute()
+#13 {main} in /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php:248
+2016-08-15 17:47:24 --- EMERGENCY: Database_Exception [ 0 ]: could not find driver ~ MODPATH/database/classes/Kohana/Database/PDO.php [ 59 ] in /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php:248
+2016-08-15 17:47:24 --- DEBUG: #0 /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php(248): Kohana_Database_PDO->connect()
+#1 /var/www/ipra/modules/database/classes/Kohana/Database.php(478): Kohana_Database_PDO->escape('elizhenin')
+#2 /var/www/ipra/modules/database/classes/Kohana/Database/Query/Builder.php(116): Kohana_Database->quote('elizhenin')
+#3 /var/www/ipra/modules/database/classes/Kohana/Database/Query/Builder/Select.php(372): Kohana_Database_Query_Builder->_compile_conditions(Object(Database_PDO), Array)
+#4 /var/www/ipra/modules/database/classes/Kohana/Database/Query.php(234): Kohana_Database_Query_Builder_Select->compile(Object(Database_PDO))
+#5 /var/www/ipra/application/classes/Model/Login.php(17): Kohana_Database_Query->execute()
+#6 /var/www/ipra/application/classes/Controller/Users.php(13): Model_Login::checkUser('elizhenin', 'Pass123')
+#7 /var/www/ipra/system/classes/Kohana/Controller.php(84): Controller_Users->action_login()
+#8 [internal function]: Kohana_Controller->execute()
+#9 /var/www/ipra/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Users))
+#10 /var/www/ipra/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#11 /var/www/ipra/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#12 /var/www/ipra/index.php(118): Kohana_Request->execute()
+#13 {main} in /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php:248
+2016-08-15 17:48:31 --- EMERGENCY: Database_Exception [ 0 ]: could not find driver ~ MODPATH/database/classes/Kohana/Database/PDO.php [ 59 ] in /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php:248
+2016-08-15 17:48:31 --- DEBUG: #0 /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php(248): Kohana_Database_PDO->connect()
+#1 /var/www/ipra/modules/database/classes/Kohana/Database.php(478): Kohana_Database_PDO->escape('elizhenin')
+#2 /var/www/ipra/modules/database/classes/Kohana/Database/Query/Builder.php(116): Kohana_Database->quote('elizhenin')
+#3 /var/www/ipra/modules/database/classes/Kohana/Database/Query/Builder/Select.php(372): Kohana_Database_Query_Builder->_compile_conditions(Object(Database_PDO), Array)
+#4 /var/www/ipra/modules/database/classes/Kohana/Database/Query.php(234): Kohana_Database_Query_Builder_Select->compile(Object(Database_PDO))
+#5 /var/www/ipra/application/classes/Model/Login.php(17): Kohana_Database_Query->execute()
+#6 /var/www/ipra/application/classes/Controller/Users.php(13): Model_Login::checkUser('elizhenin', 'Pass123')
+#7 /var/www/ipra/system/classes/Kohana/Controller.php(84): Controller_Users->action_login()
+#8 [internal function]: Kohana_Controller->execute()
+#9 /var/www/ipra/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Users))
+#10 /var/www/ipra/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#11 /var/www/ipra/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#12 /var/www/ipra/index.php(118): Kohana_Request->execute()
+#13 {main} in /var/www/ipra/modules/database/classes/Kohana/Database/PDO.php:248
+2016-08-15 17:51:51 --- EMERGENCY: ErrorException [ 2 ]: Invalid argument supplied for foreach() ~ APPPATH/classes/Controller/Ajax.php [ 361 ] in /var/www/ipra/application/classes/Controller/Ajax.php:361
+2016-08-15 17:51:51 --- DEBUG: #0 /var/www/ipra/application/classes/Controller/Ajax.php(361): Kohana_Core::error_handler(2, 'Invalid argumen...', '/var/www/ipra/a...', 361, Array)
+#1 /var/www/ipra/system/classes/Kohana/Controller.php(84): Controller_Ajax->action_medorgcount()
+#2 [internal function]: Kohana_Controller->execute()
+#3 /var/www/ipra/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Ajax))
+#4 /var/www/ipra/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#5 /var/www/ipra/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#6 /var/www/ipra/index.php(118): Kohana_Request->execute()
+#7 {main} in /var/www/ipra/application/classes/Controller/Ajax.php:361
+2016-08-15 17:52:03 --- EMERGENCY: ErrorException [ 2 ]: Invalid argument supplied for foreach() ~ APPPATH/classes/Controller/Ajax.php [ 361 ] in /var/www/ipra/application/classes/Controller/Ajax.php:361
+2016-08-15 17:52:03 --- DEBUG: #0 /var/www/ipra/application/classes/Controller/Ajax.php(361): Kohana_Core::error_handler(2, 'Invalid argumen...', '/var/www/ipra/a...', 361, Array)
+#1 /var/www/ipra/system/classes/Kohana/Controller.php(84): Controller_Ajax->action_medorgcount()
+#2 [internal function]: Kohana_Controller->execute()
+#3 /var/www/ipra/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Ajax))
+#4 /var/www/ipra/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#5 /var/www/ipra/system/classes/Kohana/Request.php(997): Kohana_Request_Client->execute(Object(Request))
+#6 /var/www/ipra/index.php(118): Kohana_Request->execute()
+#7 {main} in /var/www/ipra/application/classes/Controller/Ajax.php:361
