@@ -5,6 +5,8 @@
         items: [
             {type: 'button', id: 'ipra', caption: 'ИПРА', img: 'icon-page'},
             {type: 'button', id: 'outgoing', caption: 'Направленные', img: 'icon-page'},
+            {type: 'button', id: 'journal', caption: 'Журнал исполненных', img: 'icon-page'},
+
             {type: 'spacer'},
             {type: 'break', id: 'break_before_name'},
             {type: 'button', id: 'user_name', caption: '<?=$user['login']?>', hint: 'Сменить пароль'},
@@ -19,6 +21,10 @@
             if (event.target == 'outgoing') {
                 location.href = '/lpu/outgoing';
             }
+            if (event.target == 'journal') {
+                location.href = '/lpu/journal';
+            }
+
             if (event.target == 'user_name') {
                 openPopup();
             }

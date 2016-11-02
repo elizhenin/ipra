@@ -441,7 +441,7 @@ class Model_Ipra extends Model
             ->as_array();
         if (!empty($db)) {
             foreach ($db as $key => $value) {
-                $db[$key]['restxt'] =  str_replace('"', '\"', trim($value['restxt']));
+                $db[$key]['restxt'] = str_replace('"', '\"', trim($value['restxt']));
                 if (!empty(trim($value['restxt'])) && (empty($value['result']))) $db[$key]['result'] = 'не выполнено(иное)';
             }
             return $db;
@@ -609,6 +609,7 @@ class Model_Ipra extends Model
             array('prg.fname', 'fname'),
             array('prg.sname', 'sname'),
             array('prg.bdate', 'bdate'),
+            array('prg.prgdt', 'prgdt'),
             array('med_org.name', 'med_org'),
             array('med_org.dicid', 'med_org_id'),
             array('rhb_type.name', 'type'),
@@ -638,15 +639,21 @@ class Model_Ipra extends Model
             ->or_where('prg_rhb.resid', '!=', '0')
             ->or_where('prg_rhb.result', '!=', '')
             ->and_where_close();
-        if (!empty($search)) {
 
+        if (!empty($search)) {
             foreach ($search as $one) {
                 if ($one['field'] == 'med_org_id') {
                     if (!empty($one['value'])) $db->and_where('prg.med_org_id', '=', $one['value']);
                 }
-
             }
-
+        }
+        {
+            $session = Session::instance();
+            $user = $session->get('user', false);
+            if (('lpu' == $user['rights']) &&
+                (0 < $user['med_org_id'])
+            )
+                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
         }
         $db = $db
             ->limit($limit)
@@ -685,6 +692,14 @@ class Model_Ipra extends Model
             }
 
         }
+        {
+            $session = Session::instance();
+            $user = $session->get('user', false);
+            if (('lpu' == $user['rights']) &&
+                (0 < $user['med_org_id'])
+            )
+                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
+        }
         $db = $db
             ->execute()
             ->as_array();
@@ -692,7 +707,7 @@ class Model_Ipra extends Model
         else return false;
     }
 
-    static function GetIpraMedOrgCounted($from = false,$to = false)
+    static function GetIpraMedOrgCounted($from = false, $to = false)
     {
         $db = DB::select(
             array('med_org.dicid', 'recid'),
@@ -708,13 +723,13 @@ class Model_Ipra extends Model
             ->where('med_org.parentid', '=', '0')
             ->or_where('prg.med_org_id', '=', '0')
             ->and_where_close();
-        if(!empty($from)){
-            $db->where('prg.prgdt','>=',$from);
+        if (!empty($from)) {
+            $db->where('prg.prgdt', '>=', $from);
         }
-        if(!empty($to)){
-            $db->where('prg.prgdt','<=',$to);
+        if (!empty($to)) {
+            $db->where('prg.prgdt', '<=', $to);
         }
-        $db ->group_by('med_org.dicid')
+        $db->group_by('med_org.dicid')
             ->group_by('med_org.name')
             ->order_by('ipracount', 'DESC');
         self::slog('med_org,prg_rhb', $db->compile());
@@ -733,7 +748,7 @@ class Model_Ipra extends Model
         } else return false;
     }
 
-    static function GetReadyIpraMedOrgCounted($from = false,$to = false)
+    static function GetReadyIpraMedOrgCounted($from = false, $to = false)
     {
         $db = DB::select(
             array('med_org.dicid', 'recid'),
@@ -753,13 +768,13 @@ class Model_Ipra extends Model
             ->or_where('prg_rhb.resid', '!=', '0')
             ->or_where('prg_rhb.result', '!=', '')
             ->and_where_close();
-        if(!empty($from)){
-            $db->where('prg.prgdt','>=',$from);
+        if (!empty($from)) {
+            $db->where('prg.prgdt', '>=', $from);
         }
-        if(!empty($to)){
-            $db->where('prg.prgdt','<=',$to);
+        if (!empty($to)) {
+            $db->where('prg.prgdt', '<=', $to);
         }
-        $db ->group_by('med_org.dicid')
+        $db->group_by('med_org.dicid')
             ->group_by('med_org.name');
         self::slog('med_org,prg_rhb', $db->compile());
         $db = $db
@@ -777,7 +792,7 @@ class Model_Ipra extends Model
         } else return false;
     }
 
-    static function GetPersonsMedOrgCounted($from = false,$to = false)
+    static function GetPersonsMedOrgCounted($from = false, $to = false)
     {
         $db = DB::select(
             array('med_org.dicid', 'recid'),
@@ -791,13 +806,13 @@ class Model_Ipra extends Model
             ->where('med_org.parentid', '=', '0')
             ->or_where('prg.med_org_id', '=', '0')
             ->and_where_close();
-        if(!empty($from)){
-            $db->where('prg.prgdt','>=',$from);
+        if (!empty($from)) {
+            $db->where('prg.prgdt', '>=', $from);
         }
-        if(!empty($to)){
-            $db->where('prg.prgdt','<=',$to);
+        if (!empty($to)) {
+            $db->where('prg.prgdt', '<=', $to);
         }
-        $db ->group_by('med_org.dicid')
+        $db->group_by('med_org.dicid')
             ->group_by('med_org.name')
             ->order_by('persons', 'DESC');
         self::slog('med_org,prg_rhb', $db->compile());
@@ -816,37 +831,37 @@ class Model_Ipra extends Model
         } else return false;
     }
 
-    static function GetPersonsFullAndPartiallyMedOrgCounted($from = false,$to = false)
+    static function GetPersonsFullAndPartiallyMedOrgCounted($from = false, $to = false)
     {
         $medorg = Model_Catalog::GetMedOrg(true);
         $new = array();
-        $new[0] = array('medorg'=>'(не сопоставлено)','count_full'=>0,'count_partially'=>0);
-        foreach($medorg as $one){
-            $new[$one['dicid']] = array('medorg'=>$one['name'],'count_full'=>0,'count_partially'=>0);
+        $new[0] = array('medorg' => '(не сопоставлено)', 'count_full' => 0, 'count_partially' => 0);
+        foreach ($medorg as $one) {
+            $new[$one['dicid']] = array('medorg' => $one['name'], 'count_full' => 0, 'count_partially' => 0);
         }
         unset($medorg);
         $persons = DB::select(
             array(DB::expr('COUNT("prg_rhb"."typeid")'), 'ct_id'),
-            array('prg.id','id'),
-            array('prg.med_org_id','medorg_id'),
-            array('prg_rhb.typeid','typeid')
+            array('prg.id', 'id'),
+            array('prg.med_org_id', 'medorg_id'),
+            array('prg_rhb.typeid', 'typeid')
 
         )
-            ->from(array('prg0_rhb','prg_rhb'))
-            ->join(array('prg0','prg'),'right')
-            ->on('prg_rhb.prgid','=','prg.id');
-        if(!empty($from)){
-            $persons->where('prg.prgdt','>=',$from);
+            ->from(array('prg0_rhb', 'prg_rhb'))
+            ->join(array('prg0', 'prg'), 'right')
+            ->on('prg_rhb.prgid', '=', 'prg.id');
+        if (!empty($from)) {
+            $persons->where('prg.prgdt', '>=', $from);
         }
-        if(!empty($to)){
-            $persons->where('prg.prgdt','<=',$to);
+        if (!empty($to)) {
+            $persons->where('prg.prgdt', '<=', $to);
         }
-       $persons = $persons ->group_by('prg.id','prg_rhb.typeid')
+        $persons = $persons->group_by('prg.id', 'prg_rhb.typeid')
             ->order_by('prg.id')
             ->execute()
             ->as_array();
-   //  return $persons;
-        foreach($persons as $pkey=>$person) {
+        //  return $persons;
+        foreach ($persons as $pkey => $person) {
             if (empty($dec[$person['id']])) {
 
                 if ($person['ct_id'] > 1) {

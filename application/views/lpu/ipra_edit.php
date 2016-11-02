@@ -22,7 +22,7 @@
             url: '/ajax/lpuipraeditformrecord',
             fields: [
                 {field: 'typeid', type: 'select'},
-                {field: 'evntid', type: 'select',requred: true},
+                {field: 'evntid', type: 'select'},
                 {field: 'dicid', type: 'select'},
                 {field: 'name', type: 'text'},
                 {field: 'dt_exc', type: 'date', options: {format: 'yyyy-mm-dd'}},
@@ -43,10 +43,10 @@
                    if(!this.record.approved) {
                        this.save({}, function (data) {
                            if (data.status == 'error') {
+                               w2alert(data.message,'Ошибка');
                                console.log('ERROR: ' + data.message);
-                               return;
                            }
-                           history.back();
+                           else history.back();
                        });
                    }else{
                        w2alert('ЗАПРЕЩЕНО: запись утверждена.');
