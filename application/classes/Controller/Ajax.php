@@ -149,7 +149,10 @@ class Controller_Ajax extends Controller
 
             if ($cmd == 'save-record') {
                 $record = $this->request->post('record');
-                Model_Ipra::UpdPersonsIpraFull($record);
+                $check = true;
+                if(($record['typeid']=='2')&&($record['evntid']=='0')) $check = false;
+                if((empty($record['resid']))&&(empty($record['result']))) $check = false;
+                if ($check) Model_Ipra::UpdPersonsIpraFull($record);
                 $return['status'] = 'success';
 
                 echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));

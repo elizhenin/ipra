@@ -22,11 +22,11 @@
             url: '/ajax/lpuipraeditformrecord',
             fields: [
                 {field: 'typeid', type: 'select'},
-                {field: 'evntid', type: 'select'},
+                {field: 'evntid', type: 'select',requred: true},
                 {field: 'dicid', type: 'select'},
                 {field: 'name', type: 'text'},
                 {field: 'dt_exc', type: 'date', options: {format: 'yyyy-mm-dd'}},
-                {field: 'resid', type: 'radio'},
+                {field: 'resid', type: 'radio',requred: true},
                 {field: 'par1', type: 'text'},
                 {field: 'par2', type: 'text'},
                 {field: 'par3', type: 'text'},

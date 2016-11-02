@@ -233,7 +233,7 @@ class Model_Ipra extends Model
             }
     }
 
-    static function GetPersons($limit, $offset, $sort, $search, $outgoing = false)
+    static function GetPersons($limit = 0, $offset = 0, $sort = null, $search = null, $outgoing = false)
     {
         $db = DB::select(
             array('prg.id', 'id'),
@@ -609,7 +609,6 @@ class Model_Ipra extends Model
             array('prg.fname', 'fname'),
             array('prg.sname', 'sname'),
             array('prg.bdate', 'bdate'),
-            array('prg.prgdt', 'prgdt'),
             array('med_org.name', 'med_org'),
             array('med_org.dicid', 'med_org_id'),
             array('rhb_type.name', 'type'),
@@ -639,25 +638,16 @@ class Model_Ipra extends Model
             ->or_where('prg_rhb.resid', '!=', '0')
             ->or_where('prg_rhb.result', '!=', '')
             ->and_where_close();
-
         if (!empty($search)) {
+
             foreach ($search as $one) {
                 if ($one['field'] == 'med_org_id') {
                     if (!empty($one['value'])) $db->and_where('prg.med_org_id', '=', $one['value']);
                 }
+
             }
+
         }
-
-        {
-            $session = Session::instance();
-            $user = $session->get('user', false);
-            if (('lpu' == $user['rights']) &&
-                (0 < $user['med_org_id'])
-            )
-                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
-        }
-
-
         $db = $db
             ->limit($limit)
             ->offset($offset);
@@ -695,16 +685,6 @@ class Model_Ipra extends Model
             }
 
         }
-
-        {
-            $session = Session::instance();
-            $user = $session->get('user', false);
-            if (('lpu' == $user['rights']) &&
-                (0 < $user['med_org_id'])
-            )
-                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
-        }
-
         $db = $db
             ->execute()
             ->as_array();

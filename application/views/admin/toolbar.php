@@ -50,7 +50,7 @@
                     { field: 'id', type: 'hidden', required: true },
                     { field: 'login', type: 'text', required: true },
                     { field: 'password', type: 'text', required: true },
-                    { field: 'email', type: 'email' },
+                    { field: 'email', type: 'email' }
                 ],
                 record: {
                     id            : '<?=$user['id']?>',
