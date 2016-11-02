@@ -49,7 +49,24 @@
 
             toolbar: {
                 items: [
-                    {type: 'break', id: 'break_first'},
+
+                    <?php
+                    {
+                        $session = Session::instance();
+                        $user = $session->get('user', false);
+                        if (('stat' == $user['rights'])
+or
+                            (0 == $user['med_org_id'])
+//                        &&
+//                            (0 < $user['med_org_id'])
+                        )
+                    {
+                    ?>
+    //    w2ui['toolbar'].hide('medorg');
+    //    this.hide('medorg');
+
+
+                    ({type: 'break', id: 'break_first'},
                     {
                         type: 'menu',
                         id: 'medorg',
@@ -59,6 +76,8 @@
                         items: [
                             {id: '0', text: '(Все организации)', icon: 'icon-page'},
                             <?php
+
+
                 if(!empty($med_org)){
      foreach($med_org as $value){
                     ?>
@@ -70,9 +89,16 @@
                             },
                             <?php
                         }}
+
                         ?>
                         ]
-                    },
+                    }),
+
+                    <?php
+                        }}
+                        ?>
+
+
                     {type: 'break', id: 'break_before_name'},
                     {type: 'html', id: 'medorg_name', html: '(Все организации)'},
                     {type: 'break', id: 'break_after_name'},
@@ -82,7 +108,7 @@
                 ],
                 onClick: function (target, data) {
                     if (target == 'csv') {
-                        var csv = 'ФИО;Дата рождения;СНИЛС;№ ИПР/ПРП;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
+                        var csv = 'ФИО;Дата рождения;СНИЛС;№ ИПР/ПРП;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Дата выдачи ИПРА;Результат;Мед.организация;' + "\n";
                         for (i = 1; i <= w2ui.ipra_ready.records.length; i++) {
                             csv = csv + w2ui.ipra_ready.records[i - 1].fio + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].bdate + ';';
@@ -92,6 +118,7 @@
                             csv = csv + w2ui.ipra_ready.records[i - 1].event.trim() + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].name.trim() + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].date + ';';
+                            csv = csv + w2ui.ipra_ready.records[i - 1].prgdt + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].result.trim() + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].med_org.trim() + ';';
                             csv = csv + "\n";
@@ -141,6 +168,7 @@
                 {field: 'event', caption: 'Под.тип', size: '16%', sortable: false},
                 {field: 'name', caption: 'Мероприятие', size: '16%', sortable: false},
                 {field: 'date', caption: 'Дата исполнения', size: '16%', sortable: false},
+                {field: 'prgdt', caption: 'Дата выдачи ИПРА', size: '16%', sortable: false},
                 {field: 'result', caption: 'Результат', size: '16%', sortable: false},
                 {field: 'med_org', caption: 'Мед.орг.', size: '26%', sortable: false}
             ],

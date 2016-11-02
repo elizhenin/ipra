@@ -51,37 +51,7 @@ $db = DB::delete('sys_log')
 
     public function after()
     {
-        $cleanup = $this->request->query('cleanup');
-        if (!empty($cleanup)) {
-            $Persons = Model_Ipra::GetPersons();
-            if(!empty($Persons))
-            foreach($Persons as $Person) {
-                for ($typeid = 1; $typeid <= 5; $typeid++) {
-                    $IPRA = $db = DB::select(
-                        array('prg_rhb.id', 'recid'),
-                        array('prg_rhb.typeid', 'type'),
-                        array('prg_rhb.evntid', 'event'),
-                        array('prg_rhb.resid', 'resid'),
-                        array('prg_rhb.result', 'result')
-                    )
-                        ->from(array('prg0_rhb', 'prg_rhb'))
-                        ->where('prg_rhb.typeid','=',$typeid)
-                        ->where('prg_rhb.prgid', '=', $Person['id'])
-                        ->where('prg_rhb.resid', '=', '0')
-                        ->where('prg_rhb.result', '=', '')
-                        ->execute()
-                        ->as_array();
-                    if (count($IPRA) > 1) {
-                        echo '<pre>';
-                        print_r($IPRA);
-                        echo '</pre>';
-                    }
-                }
-            }
-            die();
-        }
-
-            $uploads = $this->request->query('uploads');
+        $uploads = $this->request->query('uploads');
         if (!empty($uploads)) {
 
             $dir = 'uploads';

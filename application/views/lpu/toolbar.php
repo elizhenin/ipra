@@ -4,6 +4,7 @@
         name: 'toolbar',
         items: [
             {type: 'button', id: 'ipra', caption: 'ИПРА', img: 'icon-page'},
+            {type: 'button', id: 'journal', caption: 'Журнал исполненных', img: 'icon-page'},
             {type: 'button', id: 'outgoing', caption: 'Направленные', img: 'icon-page'},
             {type: 'spacer'},
             {type: 'break', id: 'break_before_name'},
@@ -15,6 +16,9 @@
             console.log('Target: ' + event.target, event);
             if (event.target == 'ipra') {
                 location.href = '/lpu/ipra';
+            }
+            if (event.target == 'journal') {
+                location.href = '/lpu/journal';
             }
             if (event.target == 'outgoing') {
                 location.href = '/lpu/outgoing';
@@ -36,7 +40,7 @@
     function openPopup(){
         if (!w2ui.userprofile_popup) {
             $().w2form({
-                name: 'userprofileform',
+                name: 'us   erprofileform',
                 style: 'border: 0px; background-color: transparent;',
                 formURL: '/ajax/userprofileform',
                 url: '/ajax/userprofileformcomplete',
