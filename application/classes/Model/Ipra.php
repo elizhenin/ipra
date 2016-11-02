@@ -233,7 +233,7 @@ class Model_Ipra extends Model
             }
     }
 
-    static function GetPersons($limit, $offset, $sort, $search, $outgoing = false)
+    static function GetPersons($limit = 0, $offset = 0, $sort = null, $search = null, $outgoing = false)
     {
         $db = DB::select(
             array('prg.id', 'id'),
