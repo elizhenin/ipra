@@ -1021,5 +1021,4 @@ class Model_Ipra extends Model
             }
         }
     }
-
 }
