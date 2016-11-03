@@ -22,7 +22,7 @@
             <select name="evntid" style="width: 100%"
                 <?=($typeid==2)?'':'disabled="disabled"'?>
                 >
-                <option value="0">(не определено)</option>
+                <option value="0" selected>(не определено)</option>
                 <?php
                 foreach ($rhb_evnt as $key => $value) {
                     ?>
