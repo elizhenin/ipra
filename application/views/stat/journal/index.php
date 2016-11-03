@@ -82,8 +82,9 @@
                 ],
                 onClick: function (target, data) {
                     if (target == 'csv') {
-                        var csv = 'ФИО;Дата рождения;СНИЛС;№ ИПР/ПРП;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
+                        var csv = 'Дата выдачи ИПРА;ФИО;Дата рождения;СНИЛС;№ ИПР/ПРП;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
                         for (i = 1; i <= w2ui.ipra_ready.records.length; i++) {
+                            csv = csv + w2ui.ipra_ready.records[i - 1].prgdt + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].fio + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].bdate + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].snils.trim() + ';';
