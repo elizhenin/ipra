@@ -969,6 +969,7 @@ class Model_Ipra extends Model
                 foreach ($prg as $data) {
                     $prgid = $data['id'];
                     //clenup unused
+                    unset($data['medorgexecutorid']);
                     unset($data['med_org_txt']);
                     unset($data['med_org_id']);
                     unset($data['foreign']);
