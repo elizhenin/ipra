@@ -10,11 +10,7 @@
  if(!empty($med_org)){
   foreach($med_org as $key=>$value){
      ?>
-            {
-                id: <?=$value['recid']?>,
-                name: '<?=htmlspecialchars(trim($value['name']))?>',
-                count: <?=$value['prgcomplete']?>
-            },
+            {id: <?=$value['recid']?>, name: '<?=htmlspecialchars(trim($value['name']))?>', count: <?=$value['prgcomplete']?>},
             <?php
         }}
         ?>
@@ -38,7 +34,7 @@
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список готовых ИПРА',
-            med_org_id: 0,
+            med_org_id :0,
             show: {
                 selectColumn: true,
                 toolbarDelete: true,
@@ -53,9 +49,6 @@
 
             toolbar: {
                 items: [
-                    <?php
-                    if(empty($current_lpu_only)){
-                    ?>
                     {type: 'break', id: 'break_first'},
                     {
                         type: 'menu',
@@ -83,18 +76,14 @@
                     {type: 'break', id: 'break_before_name'},
                     {type: 'html', id: 'medorg_name', html: '(Все организации)'},
                     {type: 'break', id: 'break_after_name'},
-                    <?php
-                    }
-                    ?>
                     {type: 'button', id: 'csv', caption: 'Выгрузить CSV', img: 'icon-folder'},
                     {type: 'spacer'},
                     {type: 'button', id: 'submit', caption: 'Утвердить', img: 'icon-page'}
                 ],
                 onClick: function (target, data) {
                     if (target == 'csv') {
-                        var csv = 'Дата выдачи ИПРА;ФИО;Дата рождения;СНИЛС;№ ИПР/ПРП;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
+                        var csv = 'ФИО;Дата рождения;СНИЛС;№ ИПР/ПРП;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
                         for (i = 1; i <= w2ui.ipra_ready.records.length; i++) {
-                            csv = csv + w2ui.ipra_ready.records[i - 1].prgdt + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].fio + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].bdate + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].snils.trim() + ';';
@@ -126,14 +115,14 @@
                             }
                         }
                     }
-                    if (target == 'submit') {
+                    if(target == 'submit'){
                         var selected = w2ui.ipra_ready.getSelection();
                         var xhttp = new XMLHttpRequest();
                         var body = 'cmd=' + encodeURIComponent('submit-records');
-                        for (i = 0; i < selected.length; i++) {
-                            body = body + '&selected[]=' + selected[i];
+                        for(i = 0; i< selected.length;i++){
+                            body = body + '&selected[]='+selected[i];
                         }
-                        xhttp.open("GET", "/ajax/statiprareadylist" + '?' + body, false);
+                        xhttp.open("GET", "/ajax/statiprareadylist"+ '?'+body, false);
 //                        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui.ipra_ready.reload();
@@ -144,6 +133,7 @@
                 }
             },
             columns: [
+                {field: 'prgdt', caption: 'Дата выдачи ИПРА', size: '16%', sortable: false},
                 {field: 'fio', caption: 'ФИО', size: '16%', sortable: false},
                 {field: 'bdate', caption: 'Дата рождения', size: '16%', sortable: false},
                 {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: false},
@@ -155,10 +145,10 @@
                 {field: 'result', caption: 'Результат', size: '16%', sortable: false},
                 {field: 'med_org', caption: 'Мед.орг.', size: '26%', sortable: false}
             ],
-            onLoad: function (event) {
-                event.onComplete = function () {
-                    console.log(this.med_org_id);
-                };
+        onLoad: function(event) {
+            event.onComplete = function(){
+                console.log(this.med_org_id);
+            };
             }
         }
     };
