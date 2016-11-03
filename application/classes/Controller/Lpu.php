@@ -53,6 +53,7 @@ class Controller_Lpu extends Controller_Tmp
         $this->page = $page;
     }
 
+
     public function action_journal()
     {
         $page = View::factory('stat/journal/index');
