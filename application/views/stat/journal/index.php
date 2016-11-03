@@ -83,8 +83,14 @@
 }
 ?>
                     {type: 'button', id: 'csv', caption: 'Выгрузить CSV', img: 'icon-folder'},
-                    {type: 'spacer'},
+                    {type: 'spacer'}
+                    <?php
+                 if(empty($current_lpu_only)){
+                  ?>,
                     {type: 'button', id: 'submit', caption: 'Утвердить', img: 'icon-page'}
+                    <?php
+}
+ ?>
                 ],
                 onClick: function (target, data) {
                     if (target == 'csv') {
@@ -122,21 +128,27 @@
                             }
                         }
                     }
-                    if(target == 'submit'){
+                    <?php
+                 if(empty($current_lpu_only)){
+                  ?>
+
+                    if (target == 'submit') {
                         var selected = w2ui.ipra_ready.getSelection();
                         var xhttp = new XMLHttpRequest();
                         var body = 'cmd=' + encodeURIComponent('submit-records');
-                        for(i = 0; i< selected.length;i++){
-                            body = body + '&selected[]='+selected[i];
+                        for (i = 0; i < selected.length; i++) {
+                            body = body + '&selected[]=' + selected[i];
                         }
-                        xhttp.open("GET", "/ajax/statiprareadylist"+ '?'+body, false);
+                        xhttp.open("GET", "/ajax/statiprareadylist" + '?' + body, false);
 //                        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui.ipra_ready.reload();
                         };
                         xhttp.send(body);
-
                     }
+<?php
+}
+?>
                 }
             },
             columns: [
