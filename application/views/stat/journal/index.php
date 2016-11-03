@@ -49,6 +49,9 @@
 
             toolbar: {
                 items: [
+                    <?php
+                  if(empty($current_lpu_only)){
+                   ?>
                     {type: 'break', id: 'break_first'},
                     {
                         type: 'menu',
@@ -76,6 +79,9 @@
                     {type: 'break', id: 'break_before_name'},
                     {type: 'html', id: 'medorg_name', html: '(Все организации)'},
                     {type: 'break', id: 'break_after_name'},
+<?php
+}
+?>
                     {type: 'button', id: 'csv', caption: 'Выгрузить CSV', img: 'icon-folder'},
                     {type: 'spacer'},
                     {type: 'button', id: 'submit', caption: 'Утвердить', img: 'icon-page'}
