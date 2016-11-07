@@ -6,7 +6,7 @@ class Controller_Stat extends Controller_Tmp
 
     public function action_index()
     {
-        $this->redirect('/stat/journal');
+        $this->redirect('/stat/unapproved');
     }
 
     public function action_upload()
@@ -51,10 +51,22 @@ class Controller_Stat extends Controller_Tmp
         $this->page = $page;
     }
 
-    public function action_journal()
+    public function action_unapproved()
     {
-        $page = View::factory('stat/journal/index');
+        $page = View::factory('stat/unapproved/index');
         $menu = Model_Ipra::GetReadyIpraMedOrgCountedUnApproved();
+        foreach($menu as $key=>$one)
+            if(empty($one['recid'])) unset($menu[$key]);
+        $page->med_org = $menu;
+        $page->toolbar_cfg = View::factory('stat/toolbar');
+        $this->page = $page;
+    }
+
+    public function action_approved()
+    {
+        $page = View::factory('stat/approved/index');
+        $menu = Model_Ipra::GetReadyIpraMedOrgCountedApproved();
+        if(!empty($menu))
         foreach($menu as $key=>$one)
             if(empty($one['recid'])) unset($menu[$key]);
         $page->med_org = $menu;

@@ -707,6 +707,117 @@ class Model_Ipra extends Model
         else return false;
     }
 
+    static function GetIpraApproved($limit, $offset, $search)
+    {
+        $db = DB::select(
+            array('prg_rhb.id', 'recid'),
+            array('prg_rhb.dt_exc', 'date'),
+            array('prg_rhb.name', 'ex_name'),
+            array('prg_rhb.resid', 'resid'),
+            array('prg.prgnum', 'prgnum'),
+            array('prg.snils', 'snils'),
+            array('prg.lname', 'lname'),
+            array('prg.fname', 'fname'),
+            array('prg.sname', 'sname'),
+            array('prg.bdate', 'bdate'),
+            array('prg.prgdt', 'prgdt'),
+            array('med_org.name', 'med_org'),
+            array('med_org.dicid', 'med_org_id'),
+            array('rhb_type.name', 'type'),
+            array('rhb_evnt.name', 'event'),
+            array('rhb_dic.name', 'dicid'),
+            array('rhb_tsr.name', 'tsrid')
+
+        )
+            ->from(array('prg0_rhb', 'prg_rhb'))
+            ->join('rhb_type', 'left')
+            ->on('rhb_type.id', '=', 'prg_rhb.typeid')
+            ->join('rhb_evnt', 'left')
+            ->on('rhb_evnt.id', '=', 'prg_rhb.evntid')
+//            ->join('rhb_res','left')
+//            ->on('rhb_res.id','=','prg_rhb.resid')
+            ->join('rhb_dic', 'left')
+            ->on('rhb_dic.id', '=', 'prg_rhb.dicid')
+            ->join('rhb_tsr', 'left')
+            ->on('rhb_tsr.id', '=', 'prg_rhb.tsrid')
+            ->join(array('prg0', 'prg'), 'right')
+            ->on('prg_rhb.prgid', '=', 'prg.id')
+            ->join('med_org', 'left')
+            ->on('med_org.dicid', '=', 'prg.med_org_id')
+            ->where('med_org.parentid', '=', 0)
+            ->where('prg_rhb.approved', '=', true)
+            ->and_where_open()
+            ->or_where('prg_rhb.resid', '!=', '0')
+            ->or_where('prg_rhb.result', '!=', '')
+            ->and_where_close();
+
+        if (!empty($search)) {
+            foreach ($search as $one) {
+                if ($one['field'] == 'med_org_id') {
+                    if (!empty($one['value'])) $db->and_where('prg.med_org_id', '=', $one['value']);
+                }
+            }
+        }
+        {
+            $session = Session::instance();
+            $user = $session->get('user', false);
+            if (('lpu' == $user['rights']) &&
+                (0 < $user['med_org_id'])
+            )
+                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
+        }
+        $db = $db
+            ->limit($limit)
+            ->offset($offset);
+        self::slog('prg_rhb,rhb_type,thb_evnt,rhb_dic,rhb_tsr,prg,med_org', $db->compile());
+        $db = $db
+            ->execute()
+            ->as_array();
+        if (!empty($db)) {
+            $return = array();
+            foreach ($db as $one) {
+                if (empty($return[$one['recid']])) $return[$one['recid']] = $one;
+            }
+            return $return;
+        } else return false;
+    }
+
+    static function CountIpraApproved($search)
+    {
+        $db = DB::select(array(DB::expr('COUNT("prg_rhb"."id")'), 'count'))
+            ->from(array('prg0_rhb', 'prg_rhb'))
+            ->join(array('prg0', 'prg'), 'right')
+            ->on('prg_rhb.prgid', '=', 'prg.id')
+            ->where('prg_rhb.approved', '=', true)
+            ->and_where_open()
+            ->or_where('prg_rhb.resid', '!=', '0')
+            ->or_where('prg_rhb.result', '!=', '')
+            ->and_where_close();
+        if (!empty($search)) {
+
+            foreach ($search as $one) {
+                if ($one['field'] == 'med_org_id') {
+                    if (!empty($one['value'])) $db->and_where('prg.med_org_id', '=', $one['value']);
+                }
+
+            }
+
+        }
+        {
+            $session = Session::instance();
+            $user = $session->get('user', false);
+            if (('lpu' == $user['rights']) &&
+                (0 < $user['med_org_id'])
+            )
+                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
+        }
+        $db = $db
+            ->execute()
+            ->as_array();
+        if (!empty($db)) return $db[0]['count'];
+        else return false;
+    }
+
     static function GetIpraMedOrgCounted($from = false, $to = false)
     {
         $db = DB::select(
@@ -917,6 +1028,47 @@ class Model_Ipra extends Model
             return $db;
         } else return false;
     }
+
+    static function GetReadyIpraMedOrgCountedApproved()
+    {
+        $db = DB::select(
+            array('med_org.dicid', 'recid'),
+            array(DB::expr('COUNT("prg_rhb"."id")'), 'prgcomplete'),
+            array('med_org.name', 'name')
+        )
+            ->from('med_org')
+            ->join(array('prg0', 'prg'), 'right')
+            ->on('med_org.dicid', '=', 'prg.med_org_id')
+            ->join(array('prg0_rhb', 'prg_rhb'), 'right')
+            ->on('prg_rhb.prgid', '=', 'prg.id')
+            ->where('prg_rhb.approved', '=', true)
+            ->and_where_open()
+            ->where('med_org.parentid', '=', '0')
+            ->or_where('prg.med_org_id', '=', '0')
+            ->and_where_close()
+            ->and_where_open()
+            ->or_where('prg_rhb.resid', '!=', '0')
+            ->or_where('prg_rhb.result', '!=', '')
+            ->and_where_close()
+            ->group_by('med_org.dicid')
+            ->group_by('med_org.name')
+            ->order_by('prgcomplete', 'DESC');
+        self::slog('med_org,prg_rhb', $db->compile());
+        $db = $db
+            ->execute()
+            ->as_array();
+
+        if (!empty($db)) {
+            foreach ($db as $key => $value) {
+                if (trim($db[$key]['name']))
+                    $db[$key]['name'] = trim($db[$key]['name']);
+                else $db[$key]['name'] = '(не сопоставлено)';
+            }
+
+            return $db;
+        } else return false;
+    }
+
 
     static function GetPersonsIpraTypeId($prgid)
     {

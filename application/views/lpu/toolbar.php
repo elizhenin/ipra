@@ -5,8 +5,19 @@
         items: [
             {type: 'button', id: 'ipra', caption: 'ИПРА', img: 'icon-page'},
             {type: 'button', id: 'outgoing', caption: 'Направленные', img: 'icon-page'},
-            {type: 'button', id: 'journal', caption: 'Журнал исполненных', img: 'icon-page'},
+            {
+                type: 'menu',
+                id: 'journals',
+                caption: 'Журналы',
+                icon: 'fa-table',
+                count: 2,
+                items: [
+//                    {id:0,text:''},
+                    {id: 'unapproved', text: 'Неутвержденные', icon: 'icon-page'},
+                    {id: 'approved', text: 'Отгруженные', icon: 'icon-page'}
 
+                ]
+            },
             {type: 'spacer'},
             {type: 'break', id: 'break_before_name'},
             {type: 'button', id: 'user_name', caption: '<?=$user['login']?>', hint: 'Сменить пароль'},
@@ -21,8 +32,8 @@
             if (event.target == 'outgoing') {
                 location.href = '/lpu/outgoing';
             }
-            if (event.target == 'journal') {
-                location.href = '/lpu/journal';
+            if (event.target.substr(0, 9) == 'journals:') {
+                location.href = '/lpu/'+event.target.substr(9, event.target.length - 9);
             }
 
             if (event.target == 'user_name') {

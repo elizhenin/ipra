@@ -54,10 +54,22 @@ class Controller_Lpu extends Controller_Tmp
     }
 
 
-    public function action_journal()
+    public function action_unapproved()
     {
-        $page = View::factory('stat/journal/index');
+        $page = View::factory('stat/unapproved/index');
         $menu = Model_Ipra::GetReadyIpraMedOrgCountedUnApproved();
+        foreach($menu as $key=>$one)
+            if(empty($one['recid'])) unset($menu[$key]);
+        $page->current_lpu_only = true;
+        $page->med_org = $menu;
+        $page->toolbar_cfg = View::factory('lpu/toolbar');
+        $this->page = $page;
+    }
+    public function action_approved()
+    {
+        $page = View::factory('stat/approved/index');
+        $menu = Model_Ipra::GetReadyIpraMedOrgCountedApproved();
+        if(!empty($menu))
         foreach($menu as $key=>$one)
             if(empty($one['recid'])) unset($menu[$key]);
         $page->current_lpu_only = true;

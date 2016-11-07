@@ -3,7 +3,19 @@
     {
         name: 'toolbar',
         items: [
-            {type: 'button', id: 'journal', caption: 'Журнал исполненных', img: 'icon-page'},
+            {
+                type: 'menu',
+                id: 'journals',
+                caption: 'Журналы',
+                icon: 'fa-table',
+                count: 2,
+                items: [
+//                    {id:0,text:''},
+                    {id: 'unapproved', text: 'Неутвержденные', icon: 'icon-page'},
+                    {id: 'approved', text: 'Отгруженные', icon: 'icon-page'}
+
+                ]
+            },
             {type: 'button', id: 'medorgcount', caption: 'Статистика по организациям', img: 'icon-page'},
             {type: 'button', id: 'upload', caption: 'Импорт XML', img: 'icon-page'},
             {type: 'button', id: 'medorg', caption: 'Мед.организации', img: 'icon-page'},
@@ -16,14 +28,15 @@
         ],
         onClick: function (event) {
             console.log('Target: ' + event.target, event);
+            if (event.target.substr(0, 9) == 'journals:') {
+                location.href = '/stat/'+event.target.substr(9, event.target.length - 9);
+            }
+
             if (event.target == 'upload') {
                 location.href = '/stat/upload';
             }
             if (event.target == 'medorgcount') {
                 location.href = '/stat/medorgcount';
-            }
-            if (event.target == 'journal') {
-                location.href = '/stat/journal';
             }
             if (event.target == 'medorg') {
                 location.href = '/stat/medorg';

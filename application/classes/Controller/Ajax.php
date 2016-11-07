@@ -350,6 +350,47 @@ class Controller_Ajax extends Controller
         }
     }
 
+    public function action_statipraapprovedlist()
+    {
+        if ($this->request->method() == Request::GET) {
+            $limit = $this->request->query('limit');
+            $offset = $this->request->query('offset');
+            $search = $this->request->query('search');
+            $cmd = $this->request->query('cmd');
+            if ($cmd == 'get-records') {
+                $persons = Model_Ipra::GetIpraApproved($limit, $offset, $search);
+                $return['status'] = 'success';
+                $return['total'] = Model_Ipra::CountIpraApproved($search);
+                if (!empty($return['total']))
+                    foreach ($persons as $one) {
+                        $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
+                        unset($one['lname']);
+                        unset($one['fname']);
+                        unset($one['sname']);
+                        if (!empty($one['dicid'])) {
+                            $one['name'] = $one['dicid'];
+                        } else if (!empty($one['tsrid'])) {
+                            $one['name'] = $one['tsrid'];
+                        } else $one['name'] = $one['ex_name'];
+                        unset($one['dicid']);
+                        unset($one['tsrid']);
+                        unset($one['ex_name']);
+                        if ($one['resid'] == '1') {
+                            $one['result'] = 'Выполнено';
+                        } else $one['result'] = 'Не выполнено';
+                        unset($one['resid']);
+                        $one['complete'] = false;
+                        $one['med_org'] = htmlspecialchars(trim($one['med_org']));
+                        $one['name'] = htmlspecialchars(trim($one['name']));
+                        $one['event'] = htmlspecialchars(trim($one['event']));
+                        $one['snils'] = htmlspecialchars(trim($one['snils']));
+                        $return['records'][] = $one;
+                    }
+                echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));
+            }
+        }
+    }
+
     public function action_userlist()
     {
         if ($this->request->method() == Request::GET) {
