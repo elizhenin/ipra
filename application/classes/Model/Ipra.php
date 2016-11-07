@@ -969,13 +969,15 @@ class Model_Ipra extends Model
         }
         $persons = $persons->group_by('prg.id', 'prg_rhb.typeid')
             ->order_by('prg.id')
+
             ->execute()
             ->as_array();
         //  return $persons;
+        //print_r($persons);die();
         foreach ($persons as $pkey => $person) {
             if (empty($dec[$person['id']])) {
 
-                if ($person['ct_id'] > 1) {
+                if (($person['ct_id'] > 1)&&(empty($inc[$person['id']]))) {
                     $new[$person['medorg_id']]['count_full']++;
                     $inc[$person['id']] = true;
                 }
