@@ -663,12 +663,17 @@ class Model_Ipra extends Model
             ->execute()
             ->as_array();
         if (!empty($db)) {
+            foreach ($db as $key => $value) {
+                $db[$key]['ex_name'] = str_replace('"', '\"', trim($value['ex_name']));
+            }
+
             $return = array();
             foreach ($db as $one) {
                 if (empty($return[$one['recid']])) $return[$one['recid']] = $one;
             }
             return $return;
         } else return false;
+
     }
 
     static function CountIpraReady($search)
