@@ -150,40 +150,51 @@ class Model_Ipra extends Model
             }
 
             foreach ($xml['MedSection']['EventGroups']['Group'] as $Group) {
-                $data = array();
-                $data['prgid'] = $id;
-                if (!empty($Group['GroupType']['Id'])) {
-                    switch ($Group['GroupType']['Id']) {
-                        case 34: {
-                            $data['typeid'] = 2;//Медицинская реабилитация
-                            break;
+
+                    $data = array();
+                    $data['prgid'] = $id;
+                    if (!empty($Group['GroupType']['Id'])) {
+                        switch ($Group['GroupType']['Id']) {
+                            case 34: {
+                                $data['typeid'] = 2;//Медицинская реабилитация
+                                break;
+                            }
+                            case '35': {
+                                $data['typeid'] = 3;//Реконструктивная хирургия
+                                break;
+                            }
+                            case '36': {
+                                $data['typeid'] = 4;//Протезирование и ортезирование
+                                break;
+                            }
+                            default: {
+                            goto ignore_type;
+                            }
                         }
-                        case '35': {
-                            $data['typeid'] = 3;//Реконструктивная хирургия
-                            break;
-                        }
-                        case '36': {
-                            $data['typeid'] = 4;//Протезирование и ортезирование
-                            break;
-                        }
-                        default: {
-                        goto ignore_type;
-                        }
+                    } else $data['typeid'] = 0;
+
+                    if (!empty($Group['PeriodTo'])) {
+                        $data['dt_exc'] = $Group['PeriodTo'];
+                    } else {
+                        $data['dt_exc'] = '0001-01-01';
                     }
-                } else $data['typeid'] = 0;
+                    if (!empty($Group['Executor'])) {
+                        $data['execut'] = $Group['Executor'];
+                    }
+                if(!empty($Group['GroupType']['Need'])) {
+                    $db0 = DB::insert('prg0_rhb', array_keys($data))
+                        ->values($data);
+                    self::ilog('prg', $db0->compile());
+                    $db0
+                        ->execute();
 
-                if (!empty($Group['PeriodTo'])) {
-                    $data['dt_exc'] = $Group['PeriodTo'];
-                }
-                if (!empty($Group['Executor'])) {
-                    $data['execut'] = $Group['Executor'];
+                }else{
+                    DB::delete('prg0_rhb')
+                        ->where('prgid','=',$data['prgid'])
+                        ->where('typeid','=', $data['typeid'])
+                        ->execute();
                 }
 
-                $db0 = DB::insert('prg0_rhb', array_keys($data))
-                    ->values($data);
-                self::ilog('prg', $db0->compile());
-                $db0
-                    ->execute();
                 ignore_type:
             }
 
