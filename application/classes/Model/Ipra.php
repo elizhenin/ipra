@@ -159,11 +159,11 @@ class Model_Ipra extends Model
                                 $data['typeid'] = 2;//Медицинская реабилитация
                                 break;
                             }
-                            case '35': {
+                            case 35: {
                                 $data['typeid'] = 3;//Реконструктивная хирургия
                                 break;
                             }
-                            case '36': {
+                            case 36: {
                                 $data['typeid'] = 4;//Протезирование и ортезирование
                                 break;
                             }
@@ -181,7 +181,7 @@ class Model_Ipra extends Model
                     if (!empty($Group['Executor'])) {
                         $data['execut'] = $Group['Executor'];
                     }
-                if(!empty($Group['GroupType']['Need'])) {
+                if((!empty($Group['Need']))&&($Group['Need']=='true')) {
                     $db0 = DB::insert('prg0_rhb', array_keys($data))
                         ->values($data);
                     self::ilog('prg', $db0->compile());
