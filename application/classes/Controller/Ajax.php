@@ -152,7 +152,7 @@ class Controller_Ajax extends Controller
                 $check = true;
                 if(($record['typeid']=='2')&&(empty($record['evntid']))) {$check = false;$err_message = 'Не выбран подтип мероприятия';}
                 if((empty($record['resid']))&&(empty($record['result']))) {$check = false;$err_message = 'Не указан результат исполнения';}
-                if((!empty($record['resid']))&&(!empty($record['result']))) {$check = false;$err_message = 'Неверно указан результат исполнения';}
+                if(($record['resid']!="false")&&(!empty($record['result']))) {$check = false;$err_message = 'Неверно указан результат исполнения';}
 
                 if ($check) {
                     Model_Ipra::UpdPersonsIpraFull($record);
