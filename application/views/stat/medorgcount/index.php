@@ -44,11 +44,9 @@
                         $('#period_form').submit();
                     }
                     if (event.target == 'csv') {
-                        var csv = 'Мед.организация;Мероприятий всего;Мероприятий исполненных;ИПРА всего;ИПРА исполненных;ИПРА частично исполненных;' + "\n";
+                        var csv = 'Мед.организация;ИПРА всего;ИПРА исполненных;ИПРА частично исполненных;' + "\n";
                         for (i = 1; i <= w2ui.med_org_list.records.length; i++) {
                             csv = csv + w2ui.med_org_list.records[i - 1].name.trim() + ';';
-                            csv = csv + w2ui.med_org_list.records[i - 1].ipracount + ';';
-                            csv = csv + w2ui.med_org_list.records[i - 1].ipracomplete + ';';
                             csv = csv + w2ui.med_org_list.records[i - 1].persons + ';';
                             csv = csv + w2ui.med_org_list.records[i - 1].persons_ready + ';';
                             csv = csv + w2ui.med_org_list.records[i - 1].persons_partially + ';';
@@ -61,9 +59,7 @@
                 },
 
                 columns: [
-                {field: 'name', caption: 'Мед. организации', size: '30%', editable: {type: 'text'}},
-                {field: 'ipracount', caption: 'Мероприятий всего', size: '20%', editable: {type: 'text'}},
-                {field: 'ipracomplete', caption: 'Мероприятий исполненных', size: '20%', editable: {type: 'text'}},
+                {field: 'name', caption: 'Мед. организации', size: '40%', editable: {type: 'text'}},
                 {field: 'persons', caption: 'ИПРА всего', size: '20%', editable: {type: 'text'}},
                 {field: 'persons_ready', caption: 'ИПРА исполненных', size: '20%', editable: {type: 'text'}},
                 {field: 'persons_partially', caption: 'ИПРА частично исполненных', size: '20%', editable: {type: 'text'}}
