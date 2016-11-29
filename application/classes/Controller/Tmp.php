@@ -71,10 +71,15 @@ $db = DB::delete('sys_log')
                         ->where('prg_rhb.result', '=', '')
                         ->execute()
                         ->as_array();
-                    if (count($IPRA) > 1) {
+                    if (count($IPRA) > 0) {
                         echo '<pre>';
                         print_r($IPRA);
                         echo '</pre>';
+                        foreach($IPRA as $one){
+                            DB::delete('prg0_rhb')
+                                ->where('id','=',$one['recid'])
+                                ->execute();
+                        }
                     }
                 }
             }
