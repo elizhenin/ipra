@@ -101,6 +101,7 @@ class Controller_Ajax extends Controller
                 echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));
                 $session = Session::instance();
                 $session->delete('search_string');
+                if(!empty($search))
                 $session->set('search_string',stripslashes(json_encode($search, JSON_UNESCAPED_UNICODE)));
                 if(!empty($sort))
                 $session->set('sort_string',stripslashes(json_encode($sort, JSON_UNESCAPED_UNICODE)));
