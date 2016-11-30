@@ -3,6 +3,7 @@
 </div>
 <?= $toolbar_cfg ?>
 <script type="text/javascript">
+    var search_applied = false;
     var config = {
         layout: {
             name: 'layout',
@@ -41,7 +42,7 @@
                     {type: 'button', id: 'csv', caption: 'Выгрузить в CSV', img: 'icon-folder'},
                     {type: 'button', id: 'unassoc', caption: 'Несопоставленные', img: 'icon-page'}
                 ],
-                onClick: function(event){
+                onClick: function (event) {
                     if (event.target == 'unassoc') {
                         w2popup.open({
                             title: 'Список несопоставленных',
@@ -58,7 +59,7 @@
                             csv = csv + w2ui.person_list.records[i - 1].lname.trim() + ';';
                             csv = csv + w2ui.person_list.records[i - 1].fname.trim() + ';';
                             csv = csv + w2ui.person_list.records[i - 1].sname.trim() + ';';
-			    csv = csv + w2ui.person_list.records[i - 1].bdate + ';';
+                            csv = csv + w2ui.person_list.records[i - 1].bdate + ';';
                             csv = csv + w2ui.person_list.records[i - 1].prgnum + ';';
                             csv = csv + w2ui.person_list.records[i - 1].snils.trim() + ';';
                             csv = csv + "\n";
@@ -77,6 +78,22 @@
                 {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: true}
             ],
 
+            onLoad: function(event) {
+                var search_text = '';
+                <?php
+              if(!empty($search)){
+              ?>
+                    search_text = "<?=$search[0]['value']?>";
+                    console.log(search_text);
+                <?php
+               }
+               ?>
+                if(search_applied == false) {
+                    search_applied = true;
+                    w2ui['person_list'].search(w2ui['person_list'].last.field, search_text);
+                }
+
+            },
             onClick: function (event) {
 
                 w2ui['person_detail'].clear();
@@ -143,7 +160,7 @@
 
             onEdit: function (event) {
                 var record = this.get(event.recid);
-                window.location.href = "/lpu/ipra/"+record.recid;
+                window.location.href = "/lpu/ipra/" + record.recid;
             }
         }
     };

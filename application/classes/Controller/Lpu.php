@@ -13,6 +13,10 @@ class Controller_Lpu extends Controller_Tmp
         $id = $this->request->param('id');
         if(empty($id)) {
             $page = View::factory('lpu/ipra');
+            $session = Session::instance();
+            $search = $session->get('search_string',false);
+            if(!empty($search)) $search = json_decode($search,true);
+            $page->search = $search;
         }else{
             $page = View::factory('lpu/ipra_edit');
             $page->id = $id;

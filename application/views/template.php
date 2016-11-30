@@ -6,8 +6,6 @@
     <script src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/w2ui-1.4.3.js"></script>
     <script type="text/javascript" src="/js/filesaver.js"></script>
-
-
 </head>
 <body style="padding: 0px; margin:0px">
 <script type="text/javascript">

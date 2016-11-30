@@ -36,7 +36,7 @@
             ],
             actions: {
                 abort: function () {
-                    history.back();
+                    location.href='/lpu';
                 },
                 save: function () {
                     var obj = this;
@@ -46,7 +46,7 @@
                                w2alert(data.message,'Ошибка');
                                console.log('ERROR: ' + data.message);
                            }
-                           else history.back();
+                           else location.href='/lpu';
                        });
                    }else{
                        w2alert('ЗАПРЕЩЕНО: запись утверждена.');
