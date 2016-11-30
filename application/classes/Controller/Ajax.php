@@ -102,6 +102,8 @@ class Controller_Ajax extends Controller
                 $session = Session::instance();
                 $session->delete('search_string');
                 $session->set('search_string',stripslashes(json_encode($search, JSON_UNESCAPED_UNICODE)));
+                if(!empty($sort))
+                $session->set('sort_string',stripslashes(json_encode($sort, JSON_UNESCAPED_UNICODE)));
             }
         }
     }

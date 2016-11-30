@@ -4,6 +4,7 @@
 <?= $toolbar_cfg ?>
 <script type="text/javascript">
     var search_applied = false;
+    var sort_applied = false;
     var config = {
         layout: {
             name: 'layout',
@@ -77,7 +78,9 @@
                 {field: 'prgnum', caption: 'Номер ИПРА', size: '16%', sortable: true},
                 {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: true}
             ],
+            onSearch: function(event) {
 
+            },
             onLoad: function(event) {
                 var search_text = '';
                 <?php
@@ -85,14 +88,13 @@
               ?>
                     search_text = "<?=$search[0]['value']?>";
                     console.log(search_text);
-
+                <?php
+               }
+               ?>
                 if(search_applied == false) {
                     search_applied = true;
                     w2ui['person_list'].search(w2ui['person_list'].last.field, search_text);
                 }
-                <?php
-             }
-             ?>
             },
             onClick: function (event) {
 

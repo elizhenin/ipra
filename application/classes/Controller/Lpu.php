@@ -17,6 +17,8 @@ class Controller_Lpu extends Controller_Tmp
             $search = $session->get('search_string',false);
             if(!empty($search)) $search = json_decode($search,true);
             $page->search = $search;
+            $sort = $session->get('sort_string',false);
+            $page->$sort = $sort;
         }else{
             $page = View::factory('lpu/ipra_edit');
             $page->id = $id;
