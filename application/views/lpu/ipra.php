@@ -85,14 +85,14 @@
               ?>
                     search_text = "<?=$search[0]['value']?>";
                     console.log(search_text);
-                <?php
-               }
-               ?>
+
                 if(search_applied == false) {
                     search_applied = true;
                     w2ui['person_list'].search(w2ui['person_list'].last.field, search_text);
                 }
-
+                <?php
+             }
+             ?>
             },
             onClick: function (event) {
 
