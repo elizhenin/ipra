@@ -29,7 +29,7 @@
         person_list: {
             name: 'person_list',
             url: '/ajax/lpupersonlist',
-            limit: 200,
+            limit: 100,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список пациентов',
             show: {
