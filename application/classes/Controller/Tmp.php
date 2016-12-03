@@ -143,7 +143,8 @@ $db = DB::delete('sys_log')
                         trim($r['docnum']).' '.
                         trim($r['docdt']).' '.
                         trim($r['prgnum']).' '.
-                        trim($r['prgdt']);
+                        trim($r['prgdt']).' '.
+                        trim($r['prgenddt']);
                     DB::update('prg0')
                         ->set(array('search'=>$search_str))
                         ->where('id','=',$i)

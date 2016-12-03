@@ -91,6 +91,22 @@ class Model_Ipra extends Model
         if (!empty($xml['IssueDate'])) {
             $data['prgdt'] = $xml['IssueDate'];
         }
+        if (!empty($xml['EndDate'])) {
+            $data['prgenddt'] = $xml['EndDate'];
+        }
+        if (!empty($xml['IsForChild'])) {
+            switch($xml['IsForChild']){
+                case 'true':{
+                    $data['child'] = true;
+                    break;
+                }
+                case 'false':{
+                    $data['child'] = false;
+                    break;
+                }
+            }
+            $data['prgenddt'] = $xml['EndDate'];
+        }
         if (!empty($xml['Id'])) {
             $data['mseid'] = $xml['Id'];
         }
@@ -98,19 +114,6 @@ class Model_Ipra extends Model
         if (!empty($xml['MedSection']['SenderMedOrgName'])) {
             $data['med_org_txt'] = $xml['MedSection']['SenderMedOrgName'];
         }
-
-//        $r = $data;
-//        $search_str = trim($r['dt']).
-//            trim($r['snils']).
-//            trim($r['lname']).' '.
-//            trim($r['fname']).' '.
-//            trim($r['sname']).
-//            trim($r['bdate']).
-//            trim($r['docnum']).
-//            trim($r['docdt']).
-//            trim($r['prgnum']).
-//            trim($r['prgdt']);
-//        $data['search'] = $search_str;
 
         $db = DB::select('id')
             ->from('prg0')
@@ -143,7 +146,7 @@ class Model_Ipra extends Model
                 ->as_array();
             $id = $db[0]['id'];
         }
-
+/*
         if (!empty($xml['MedSection'])) {
             if (!(key($xml['MedSection']['EventGroups']['Group']) == '0')) {
                 $xml['MedSection']['EventGroups']['Group'] = array($xml['MedSection']['EventGroups']['Group']);
@@ -199,6 +202,7 @@ class Model_Ipra extends Model
             }
 
         }
+*/
         checkpoint:
     }
 
@@ -248,8 +252,6 @@ class Model_Ipra extends Model
     {
         $db = DB::select(
             array('prg.id', 'id'),
-            array('prg_okr.name', 'okrug'),
-            array('prg_reg.name', 'region'),
             array('prg.nreg', 'nreg'),
             array('prg.dt', 'dt'),
             array('prg.snils', 'snils'),
@@ -262,9 +264,9 @@ class Model_Ipra extends Model
             array('prg_oiv.name', 'org_isp_vlast'),
             array('prg.docnum', 'docnum'),
             array('prg.docdt', 'docdt'),
-            array('prg.prg', 'prg'),
             array('prg.prgnum', 'prgnum'),
             array('prg.prgdt', 'prgdt'),
+            array('prg.prgenddt', 'prgenddt'),
             array('prg.med_org_id', 'medorg'),
             array('prg.medorgexecutorid', 'medorgexecutorid')
         )

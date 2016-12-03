@@ -13,7 +13,7 @@
             panels: [
                 {type: 'top', size: '34', resizable: false},
                 {type: 'main', minSize: 300},
-                {type: 'right', size: '50%', minSize: 300}
+                {type: 'right', size: '40%', minSize: 300}
             ]
         },
         card_layout: {
@@ -21,7 +21,7 @@
             padding: 0,
             margin: 10,
             panels: [
-                {type: 'top', size: '391px', minSize: 300},
+                {type: 'top', minSize: 250},
                 {type: 'main', minSize: 300}
             ]
         },
@@ -54,9 +54,10 @@
                         });
                     }
                     if (event.target == 'csv') {
-                        var csv = 'Дата выдачи ИПРА;Фамилия;Иия;Отчество;Дата рождения;№ ИПРА;СНИЛС;' + "\n";
+                        var csv = 'Дата выдачи;Дата окончания;Фамилия;Иия;Отчество;Дата рождения;№ ИПРА;СНИЛС;' + "\n";
                         for (i = 1; i <= w2ui.person_list.records.length; i++) {
                             csv = csv + w2ui.person_list.records[i - 1].prgdt + ';';
+                            csv = csv + w2ui.person_list.records[i - 1].prgenddt + ';';
                             csv = csv + w2ui.person_list.records[i - 1].lname.trim() + ';';
                             csv = csv + w2ui.person_list.records[i - 1].fname.trim() + ';';
                             csv = csv + w2ui.person_list.records[i - 1].sname.trim() + ';';
@@ -71,7 +72,8 @@
                 }
             },
             columns: [
-                {field: 'prgdt', caption: 'Дата выдачи ИПРА', size: '16%', sortable: true},
+                {field: 'prgdt', caption: 'Дата выдачи', size: '16%', sortable: true},
+                {field: 'prgenddt', caption: 'Дата окончания', size: '16%', sortable: true},
                 {field: 'lname', caption: 'Фамилия', size: '16%', sortable: true},
                 {field: 'fname', caption: 'Имя', size: '16%', sortable: true},
                 {field: 'sname', caption: 'Отчество', size: '16%', sortable: true},
@@ -102,21 +104,15 @@
                 w2ui['person_detail'].clear();
                 var record = this.get(event.recid);
                 w2ui['person_detail'].add([
-                    {recid: 0, name: 'Округ:', value: record.okrug},
-                    {recid: 1, name: 'Регион:', value: record.region},
-                    {recid: 2, name: 'Дата актуальности:', value: record.dt},
-                    {recid: 3, name: 'СНИЛС:', value: record.snils},
-                    {recid: 4, name: 'Фамилия:', value: record.lname},
-                    {recid: 5, name: 'Имя:', value: record.fname},
-                    {recid: 6, name: 'Отчество:', value: record.sname},
-                    {recid: 7, name: 'Дата рождения:', value: record.bdate},
-                    {recid: 8, name: 'Пол:', value: record.gndr},
-                    {recid: 9, name: 'Номер протокола:', value: record.docnum},
-                    {recid: 10, name: 'Дата проведения МСЭ:', value: record.docdt},
-                    {recid: 11, name: 'Программа:', value: record.prg},
-                    {recid: 12, name: 'Номер карты ИПРА:', value: record.prgnum},
-                    {recid: 13, name: 'Дата выдачи ИПРА:', value: record.prgdt},
-                    {recid: 14, name: 'Прикрепление МО:', value: record.medorg}
+                    {recid: 1, name: 'СНИЛС:', value: record.snils},
+                    {recid: 2, name: 'ФИО:', value: record.lname+' '+record.fname+' '+record.sname},
+                    {recid: 3, name: 'Дата рождения:', value: record.bdate},
+                    {recid: 4, name: 'Пол:', value: record.gndr},
+                    {recid: 5, name: 'Номер протокола:', value: record.docnum},
+                    {recid: 6, name: 'Номер карты ИПРА:', value: record.prgnum},
+                    {recid: 7, name: 'Дата выдачи:', value: record.prgdt},
+                    {recid: 8, name: 'Дата окончания:', value: record.prgenddt},
+                    {recid: 9, name: 'Прикрепление МО:', value: record.medorg}
                 ]);
                 w2ui['ipra_list'].clear();
                 w2ui['ipra_list'].add(record.ipra_list);
@@ -131,7 +127,7 @@
                 {
                     field: 'name',
                     caption: 'Name',
-                    size: '150px',
+                    size: '120px',
                     style: 'background-color: #efefef; border-bottom: 1px solid white; padding-right: 0px;',
                     attr: "align=right"
                 },

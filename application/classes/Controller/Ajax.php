@@ -85,8 +85,6 @@ class Controller_Ajax extends Controller
                             unset($one['id']);
                             if ($one['gndr'] == '1') $one['gndr'] = 'Мужской';
                             if ($one['gndr'] == '2') $one['gndr'] = 'Женский';
-                            if ($one['prg'] == '1') $one['prg'] = 'ИПР';
-                            if ($one['prg'] == '2') $one['prg'] = 'ПРП';
                             if (!empty($medorg[$one['medorg']])) $one['medorg'] = $medorg[$one['medorg']];
                             else $one['medorg'] = '(не определено)';
                             if (empty($one['fname'])) $one['fname'] = '';
@@ -94,6 +92,7 @@ class Controller_Ajax extends Controller
                             if (empty($one['lname'])) $one['lname'] = '';
                             if (empty($one['snils'])) $one['snils'] = '';
                             if (empty($one['prgdt'])) $one['prgdt'] = '';
+                            if (empty($one['prgenddt'])) $one['prgenddt'] = '';
                             $one['ipra_list'] = Model_Ipra::GetPersonsIpra($one['recid']);
                             $return['records'][] = $one;
                         }
