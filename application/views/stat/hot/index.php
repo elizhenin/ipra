@@ -49,7 +49,7 @@
 
             toolbar: {
                 items: [
-                    {type: 'button', id: 'open', caption: 'Найти', img: 'icon-folder'},
+                    {type: 'button', id: 'open', caption: 'Открыть', img: 'icon-folder'},
                     <?php
                   if(empty($current_lpu_only)){
                    ?>
