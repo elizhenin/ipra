@@ -140,8 +140,8 @@ $db = DB::delete('sys_log')
                         trim($r['fname']).' '.
                         trim($r['sname']).' '.
                         trim($r['bdate']).' '.
-                        trim($r['docnum']).' '.
-                        trim($r['docdt']).' '.
+//                        trim($r['docnum']).' '.
+//                        trim($r['docdt']).' '.
                         trim($r['prgnum']).' '.
                         trim($r['prgdt']).' '.
                         trim($r['prgenddt']);

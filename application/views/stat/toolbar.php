@@ -3,14 +3,16 @@
     {
         name: 'toolbar',
         items: [
+            {type: 'button', id: 'ipra', caption: 'ИПРА', img: 'icon-page'},
             {
                 type: 'menu',
                 id: 'journals',
                 caption: 'Журналы',
                 icon: 'fa-table',
-                count: 2,
+                count: 3,
                 items: [
 //                    {id:0,text:''},
+                    {id: 'hot', text: 'Срочные', icon: 'icon-page'},
                     {id: 'unapproved', text: 'Неутвержденные', icon: 'icon-page'},
                     {id: 'approved', text: 'Отгруженные', icon: 'icon-page'}
 
@@ -28,6 +30,10 @@
         ],
         onClick: function (event) {
             console.log('Target: ' + event.target, event);
+            if (event.target == 'ipra') {
+                location.href = '/stat/ipra';
+            }
+
             if (event.target.substr(0, 9) == 'journals:') {
                 location.href = '/stat/'+event.target.substr(9, event.target.length - 9);
             }

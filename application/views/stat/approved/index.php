@@ -85,9 +85,10 @@
                 ],
                 onClick: function (target, data) {
                     if (target == 'csv') {
-                        var csv = 'Дата выдачи ИПРА;ФИО;Дата рождения;СНИЛС;№ ИПР/ПРП;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
+                        var csv = 'Дата выдачи;Дата окончания;ФИО;Дата рождения;СНИЛС;№ ИПРА;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
                         for (i = 1; i <= w2ui.ipra_ready.records.length; i++) {
                             csv = csv + w2ui.ipra_ready.records[i - 1].prgdt + ';';
+                            csv = csv + w2ui.ipra_ready.records[i - 1].prgenddt + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].fio + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].bdate + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].snils.trim() + ';';
@@ -143,11 +144,12 @@
                 }
             },
             columns: [
-                {field: 'prgdt', caption: 'Дата выдачи ИПРА', size: '16%', sortable: false},
+                {field: 'prgdt', caption: 'Дата выдачи', size: '16%', sortable: false},
+                {field: 'prgenddt', caption: 'Дата окончания', size: '16%', sortable: false},
                 {field: 'fio', caption: 'ФИО', size: '16%', sortable: false},
                 {field: 'bdate', caption: 'Дата рождения', size: '16%', sortable: false},
                 {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: false},
-                {field: 'prgnum', caption: 'Номер ИПР/ПРП', size: '16%', sortable: false},
+                {field: 'prgnum', caption: 'Номер ИПРА', size: '16%', sortable: false},
                 {field: 'type', caption: 'Тип', size: '16%', sortable: false},
                 {field: 'event', caption: 'Под.тип', size: '16%', sortable: false},
                 {field: 'name', caption: 'Мероприятие', size: '16%', sortable: false},

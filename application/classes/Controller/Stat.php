@@ -9,6 +9,27 @@ class Controller_Stat extends Controller_Tmp
         $this->redirect('/stat/unapproved');
     }
 
+    public function action_ipra()
+    {
+        $id = $this->request->param('id');
+        if(empty($id)) {
+            $page = View::factory('lpu/ipra');
+            $session = Session::instance();
+            $search = $session->get('search_string',false);
+            if(!empty($search)) $search = json_decode($search,true);
+            $page->search = $search;
+            $sort = $session->get('sort_string',false);
+            $page->$sort = $sort;
+        }else{
+            $page = View::factory('lpu/ipra_edit');
+            $page->id = $id;
+            $page->typeid = Model_Ipra::GetPersonsIpraTypeId($id);
+
+        }
+        $page->toolbar_cfg = View::factory('stat/toolbar');
+        $this->page = $page;
+    }
+
     public function action_upload()
     {
         if ($this->request->method() == Request::POST) {
@@ -47,6 +68,15 @@ class Controller_Stat extends Controller_Tmp
             $page = View::factory('stat/upload/index');
             $page->med_org = Model_Catalog::GetMedOrg();
         }
+        $page->toolbar_cfg = View::factory('stat/toolbar');
+        $this->page = $page;
+    }
+
+    public function action_hot()
+    {
+        $page = View::factory('stat/hot/index');
+        $menu = Model_Catalog::GetMedOrg(true);
+        $page->med_org = $menu;
         $page->toolbar_cfg = View::factory('stat/toolbar');
         $this->page = $page;
     }

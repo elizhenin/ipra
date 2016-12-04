@@ -10,9 +10,10 @@
                 id: 'journals',
                 caption: 'Журналы',
                 icon: 'fa-table',
-                count: 2,
+                count: 3,
                 items: [
 //                    {id:0,text:''},
+                    {id: 'hot', text: 'Срочные', icon: 'icon-page'},
                     {id: 'unapproved', text: 'Неутвержденные', icon: 'icon-page'},
                     {id: 'approved', text: 'Отгруженные', icon: 'icon-page'}
 

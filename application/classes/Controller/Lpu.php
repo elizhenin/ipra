@@ -29,6 +29,16 @@ class Controller_Lpu extends Controller_Tmp
         $this->page = $page;
     }
 
+    public function action_hot()
+    {
+        $page = View::factory('stat/hot/index');
+        $menu = Model_Catalog::GetMedOrg(true);
+        $page->current_lpu_only = true;
+        $page->med_org = $menu;
+        $page->toolbar_cfg = View::factory('lpu/toolbar');
+        $this->page = $page;
+    }
+
     public function action_outgoing()
     {
         $page = View::factory('lpu/outgoing');

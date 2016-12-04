@@ -10,7 +10,7 @@
  if(!empty($med_org)){
   foreach($med_org as $key=>$value){
      ?>
-            {id: <?=$value['recid']?>, name: '<?=htmlspecialchars(trim($value['name']))?>', count: <?=$value['prgcomplete']?>},
+            {id: <?=$value['dicid']?>, name: '<?=htmlspecialchars(trim($value['name']))?>'},
             <?php
         }}
         ?>
@@ -23,21 +23,21 @@
             margin: 10,
             panels: [
                 {type: 'top', size: '34', resizable: false},
-                {type: 'main', size: '100%', minSize: '100'},
+                {type: 'main', size: '100%', minSize: '100'}
             ]
         },
 
 
         ipra_ready: {
             name: 'ipra_ready',
-            url: '/ajax/statiprareadylist',
+            url: '/ajax/statiprahotlist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
-            header: 'Список готовых ИПРА',
+            header: 'Список истекающих и просроченных ИПРА',
             med_org_id :0,
             show: {
-                selectColumn: true,
-                toolbarDelete: true,
+                selectColumn: false,
+                toolbarDelete: false,
                 header: true,
                 footer: true,
                 toolbar: true,
@@ -45,10 +45,11 @@
                 toolbarColumns: false,   // indicates if toolbar columns button is visible
                 toolbarSearch: false   // indicates if toolbar search controls are visible
             },
-            multiSelect: true,
+            multiSelect: false,
 
             toolbar: {
                 items: [
+                    {type: 'button', id: 'open', caption: 'Открыть', img: 'icon-folder'},
                     <?php
                   if(empty($current_lpu_only)){
                    ?>
@@ -66,10 +67,10 @@
      foreach($med_org as $value){
                     ?>
                             {
-                                id: '<?=$value['recid']?>',
+                                id: '<?=$value['dicid']?>',
                                 text: '<?=htmlspecialchars(trim($value['name']))?>',
                                 icon: 'icon-page',
-                                count: '<?=$value['prgcomplete']?>'
+//                                count: '<?//=$value['prgcomplete']?>//'
                             },
                             <?php
                         }}
@@ -82,19 +83,27 @@
 <?php
 }
 ?>
-                    {type: 'button', id: 'csv', caption: 'Выгрузить CSV', img: 'icon-folder'},
-                    {type: 'spacer'}
-                    <?php
-                 if(empty($current_lpu_only)){
-                  ?>,
-                    {type: 'button', id: 'submit', caption: 'Утвердить', img: 'icon-page'}
-                    <?php
-}
- ?>
+                    {type: 'spacer'},
+                    {type: 'button', id: 'csv', caption: 'Выгрузить CSV', img: 'icon-folder'}
                 ],
                 onClick: function (target, data) {
+                    if (target == 'open') {
+
+                        var selected = w2ui.ipra_ready.getSelection();
+                        var xhttp = new XMLHttpRequest();
+                        var body = 'cmd=' + encodeURIComponent('get-records');
+                        for (i = 0; i < selected.length; i++) {
+                            body = body + '&search['+i+'][field]=prgdt&search['+i+'][value]=' + encodeURIComponent(w2ui.ipra_ready.get(selected[i]).prgnum.trim());
+                        }
+                        xhttp.open("GET", "/ajax/lpupersonlist" + '?' + body, false);
+                        xhttp.onreadystatechange = function () {
+                           location.href = 'ipra';
+                        };
+                        xhttp.send(body);
+                    }
+
                     if (target == 'csv') {
-                        var csv = 'Дата выдачи;Дата окончания;ФИО;Дата рождения;СНИЛС;№ ИПРА;Тип мероприятия;Подтип мероприятия;Мероприятие;Дата исполнения;Результат;Мед.организация;' + "\n";
+                        var csv = 'Дата выдачи;Дата окончания;ФИО;Дата рождения;СНИЛС;№ ИПРА;Мед.организация;' + "\n";
                         for (i = 1; i <= w2ui.ipra_ready.records.length; i++) {
                             csv = csv + w2ui.ipra_ready.records[i - 1].prgdt + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].prgenddt + ';';
@@ -102,11 +111,6 @@
                             csv = csv + w2ui.ipra_ready.records[i - 1].bdate + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].snils.trim() + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].prgnum.trim() + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].type.trim() + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].event.trim() + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].name.trim() + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].date + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].result.trim() + ';';
                             csv = csv + w2ui.ipra_ready.records[i - 1].med_org.trim() + ';';
                             csv = csv + "\n";
                         }
@@ -123,7 +127,7 @@
                                     id: 'medorg_name',
                                     html: med_org[i].name
                                 });
-                                w2ui.ipra_ready.url = '/ajax/statiprareadylist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
+                                w2ui.ipra_ready.url = '/ajax/statiprahotlist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
                                 w2ui.ipra_ready.reload();
                                 w2ui.ipra_ready.med_org_id = med_org[i].id;
                             }
@@ -159,11 +163,6 @@
                 {field: 'bdate', caption: 'Дата рождения', size: '16%', sortable: false},
                 {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: false},
                 {field: 'prgnum', caption: 'Номер ИПРА', size: '16%', sortable: false},
-                {field: 'type', caption: 'Тип', size: '16%', sortable: false},
-                {field: 'event', caption: 'Под.тип', size: '16%', sortable: false},
-                {field: 'name', caption: 'Мероприятие', size: '16%', sortable: false},
-                {field: 'date', caption: 'Дата исполнения', size: '16%', sortable: false},
-                {field: 'result', caption: 'Результат', size: '16%', sortable: false},
                 {field: 'med_org', caption: 'Мед.орг.', size: '26%', sortable: false}
             ],
         onLoad: function(event) {
