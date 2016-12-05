@@ -316,7 +316,6 @@ class Controller_Ajax extends Controller
                 if (!empty($return['total'])){
                     $persons = $return['records'];
                     unset($return['records']);
-                    ;
                     foreach ($persons as $one) {
                         $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
                         unset($one['lname']);
