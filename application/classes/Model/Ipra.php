@@ -674,8 +674,10 @@ class Model_Ipra extends Model
             ->execute()
             ->as_array();
 
-        if(!empty($db))
-        return $db;
+        if(!empty($db)){
+            $return['total'] = $ids;
+            $return['records'] = $db;
+        }
         else return false;
 
     }

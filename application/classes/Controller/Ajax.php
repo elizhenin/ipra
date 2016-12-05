@@ -311,10 +311,12 @@ class Controller_Ajax extends Controller
             $search = $this->request->query('search');
             $cmd = $this->request->query('cmd');
             if ($cmd == 'get-records') {
-                $persons = Model_Ipra::GetIpraHot($limit, $offset, $search);
-                $return['status'] = 'success';
-                $return['total'] = Model_Ipra::CountIpraHot($search);
-                if (!empty($return['total']))
+                $return = Model_Ipra::GetIpraHot($limit, $offset, $search);
+
+                if (!empty($return['total'])){
+                    $persons = $return['records'];
+                    unset($return['records']);
+                    $return['status'] = 'success';
                     foreach ($persons as $one) {
                         $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
                         unset($one['lname']);
@@ -324,7 +326,7 @@ class Controller_Ajax extends Controller
                         $one['med_org'] = htmlspecialchars(trim($one['med_org']));
                         $one['snils'] = htmlspecialchars(trim($one['snils']));
                         $return['records'][] = $one;
-                    }
+                    }}
                 echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));
             }
 
