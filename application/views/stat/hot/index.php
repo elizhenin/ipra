@@ -28,8 +28,8 @@
         },
 
 
-        ipra_ready: {
-            name: 'ipra_ready',
+        ipra_hot: {
+            name: 'ipra_hot',
             url: '/ajax/statiprahotlist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
@@ -63,14 +63,14 @@
                         items: [
                             {id: '0', text: '(Все организации)', icon: 'icon-page'},
                             <?php
-                if(!empty($med_org)){
-     foreach($med_org as $value){
-                    ?>
+                             if(!empty($med_org)){
+                             foreach($med_org as $value){
+                            ?>
                             {
                                 id: '<?=$value['dicid']?>',
                                 text: '<?=htmlspecialchars(trim($value['name']))?>',
                                 icon: 'icon-page',
-//                                count: '<?//=$value['prgcomplete']?>//'
+//                              count: '<?//=$value['prgcomplete']?>//'
                             },
                             <?php
                         }}
@@ -89,7 +89,7 @@
                 onClick: function (target, data) {
                     if (target == 'open') {
 
-                        var selected = w2ui.ipra_ready.getSelection();
+                        var selected = w2ui.ipra_hot.getSelection();
                         var xhttp = new XMLHttpRequest();
                         var body = 'cmd=' + encodeURIComponent('get-records');
                         for (i = 0; i < selected.length; i++) {
@@ -104,14 +104,14 @@
 
                     if (target == 'csv') {
                         var csv = 'Дата выдачи;Дата окончания;ФИО;Дата рождения;СНИЛС;№ ИПРА;Мед.организация;' + "\n";
-                        for (i = 1; i <= w2ui.ipra_ready.records.length; i++) {
-                            csv = csv + w2ui.ipra_ready.records[i - 1].prgdt + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].prgenddt + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].fio + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].bdate + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].snils.trim() + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].prgnum.trim() + ';';
-                            csv = csv + w2ui.ipra_ready.records[i - 1].med_org.trim() + ';';
+                        for (i = 1; i <= w2ui.ipra_hot.records.length; i++) {
+                            csv = csv + w2ui.ipra_hot.records[i - 1].prgdt + ';';
+                            csv = csv + w2ui.ipra_hot.records[i - 1].prgenddt + ';';
+                            csv = csv + w2ui.ipra_hot.records[i - 1].fio + ';';
+                            csv = csv + w2ui.ipra_hot.records[i - 1].bdate + ';';
+                            csv = csv + w2ui.ipra_hot.records[i - 1].snils.trim() + ';';
+                            csv = csv + w2ui.ipra_hot.records[i - 1].prgnum.trim() + ';';
+                            csv = csv + w2ui.ipra_hot.records[i - 1].med_org.trim() + ';';
                             csv = csv + "\n";
                         }
                         csv = $('<div/>').html(csv).text();
@@ -127,9 +127,9 @@
                                     id: 'medorg_name',
                                     html: med_org[i].name
                                 });
-                                w2ui.ipra_ready.url = '/ajax/statiprahotlist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
-                                w2ui.ipra_ready.reload();
-                                w2ui.ipra_ready.med_org_id = med_org[i].id;
+                                w2ui.ipra_hot.url = '/ajax/statiprahotlist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
+                                w2ui.ipra_hot.reload();
+                                w2ui.ipra_hot.med_org_id = med_org[i].id;
                             }
                         }
                     }
@@ -138,7 +138,7 @@
                   ?>
 
                     if (target == 'submit') {
-                        var selected = w2ui.ipra_ready.getSelection();
+                        var selected = w2ui.ipra_hot.getSelection();
                         var xhttp = new XMLHttpRequest();
                         var body = 'cmd=' + encodeURIComponent('submit-records');
                         for (i = 0; i < selected.length; i++) {
@@ -147,7 +147,7 @@
                         xhttp.open("GET", "/ajax/statiprareadylist" + '?' + body, false);
 //                        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
-                            w2ui.ipra_ready.reload();
+                            w2ui.ipra_hot.reload();
                         };
                         xhttp.send(body);
                     }
@@ -174,7 +174,7 @@
     };
     $('#main').w2layout(config.layout);
     w2ui.layout.content('top', $().w2toolbar(toolbar_cfg));
-    w2ui.layout.content('main', $().w2grid(config.ipra_ready));
+    w2ui.layout.content('main', $().w2grid(config.ipra_hot));
 
 
 </script>
