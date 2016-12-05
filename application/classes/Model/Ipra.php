@@ -675,7 +675,7 @@ class Model_Ipra extends Model
             ->as_array();
 
         if(!empty($db)){
-            $return['total'] = $ids;
+            $return['total'] = count($ids);
             $return['records'] = $db;
             return $return;
         }
