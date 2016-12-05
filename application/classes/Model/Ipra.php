@@ -677,6 +677,7 @@ class Model_Ipra extends Model
         if(!empty($db)){
             $return['total'] = $ids;
             $return['records'] = $db;
+            return $return;
         }
         else return false;
 
