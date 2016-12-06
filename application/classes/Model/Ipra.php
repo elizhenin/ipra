@@ -1238,6 +1238,7 @@ class Model_Ipra extends Model
                     unset($data['search']);
                     unset($data['id']);
                     unset($data['prgenddt']);
+                    unset($data['child']);
                     //insert person
                     $db = DB::select('id')
                         ->from('prg')
