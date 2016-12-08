@@ -29,6 +29,12 @@ class Controller_Stat extends Controller_Tmp
         $page->toolbar_cfg = View::factory('stat/toolbar');
         $this->page = $page;
     }
+    public function action_ipraunassoc()
+    {
+        $page = View::factory('lpu/unassoc');
+
+        $this->page = $page;
+    }
 
     public function action_upload()
     {

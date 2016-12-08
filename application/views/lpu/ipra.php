@@ -47,7 +47,7 @@
                     if (event.target == 'unassoc') {
                         w2popup.open({
                             title: 'Список несопоставленных',
-                            body: '<iframe src="/lpu/ipraunassoc" scrolling="no" style="overflow:hidden;width: 100%;height: 100%;padding:0px;margin:0px"></iframe>',
+                            body: '<iframe src="/<?=$toolbar_cfg->user['rights']?>/ipraunassoc" scrolling="no" style="overflow:hidden;width: 100%;height: 100%;padding:0px;margin:0px"></iframe>',
                             width: 1200,     // width in px
                             height: 600     // height in px
 
@@ -159,7 +159,7 @@
 
             onEdit: function (event) {
                 var record = this.get(event.recid);
-                window.location.href = "/lpu/ipra/" + record.recid;
+                window.location.href = "/<?=$toolbar_cfg->user['rights']?>/ipra/" + record.recid;
             }
         }
     };
