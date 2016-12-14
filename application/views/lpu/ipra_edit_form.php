@@ -49,59 +49,17 @@
             </select>
         </div>
     </div>
-<!--    <div class="w2ui-field  w2ui-span10">-->
-<!--        <label> ТСР из справочника:</label>-->
-<!---->
-<!--        <div>-->
-<!--            <select name="tsrid" style="width: 100%">-->
-<!--                <option value="0">(не определено)</option>-->
-<!--                --><?php
-//                foreach ($rhb_tsr as $key => $value) {
-//                    ?>
-<!--                    <option value="--><?//= $key ?><!--">-->
-<!--                        --><?//= trim($value) ?>
-<!--                    </option>-->
-<!--                --><?php
-//                }
-//                ?>
-<!--            </select>-->
-<!--        </div>-->
-<!--    </div>-->
+
     <div class="w2ui-field  w2ui-reset">
         Название мероприятия:<br/>
-        <input name="name" type="text" style="width: 100%"/>
-
+        <input name="name" type="text" style="width: 100%" disabled="disabled" />
     </div>
     <div class="w2ui-field w2ui-span10">
         <label>Дата выполнения мероприятия:</label>
-
         <div>
             <input name="dt_exc" type="text" maxlength="100" size="16"/>
         </div>
     </div>
-<!--    <div class="w2ui-field w2ui-span10">-->
-<!--        <label>Исполнитель из справочника:</label>-->
-<!---->
-<!--        <div>-->
-<!--            <select name="excid" style="width: 100%">-->
-<!--                <option value="0">(не определено)</option>-->
-<!--                --><?php
-//                foreach ($rhb_exc as $key => $value) {
-//                    ?>
-<!--                    <option value="--><?//= $key ?><!--">--><?//= trim($value) ?><!--</option>-->
-<!--                --><?php
-//                }
-//                ?>
-<!--            </select>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="w2ui-field w2ui-span10">-->
-<!--        <label>Исполнитель (если нет в справочнике):</label>-->
-<!---->
-<!--        <div>-->
-<!--            <input name="execut" type="text" maxlength="100" style="width: 100%"/>-->
-<!--        </div>-->
-<!--    </div>-->
     <div class="w2ui-field0  w2ui-reset">
         <div>
 
