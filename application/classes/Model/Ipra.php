@@ -145,14 +145,14 @@ class Model_Ipra extends Model
                 ->execute()
                 ->as_array();
             $id = $db[0]['id'];
-        }
-/*
-        if (!empty($xml['MedSection'])) {
-            if (!(key($xml['MedSection']['EventGroups']['Group']) == '0')) {
-                $xml['MedSection']['EventGroups']['Group'] = array($xml['MedSection']['EventGroups']['Group']);
-            }
 
-            foreach ($xml['MedSection']['EventGroups']['Group'] as $Group) {
+
+            if (!empty($xml['MedSection'])) {
+                if (!(key($xml['MedSection']['EventGroups']['Group']) == '0')) {
+                    $xml['MedSection']['EventGroups']['Group'] = array($xml['MedSection']['EventGroups']['Group']);
+                }
+
+                foreach ($xml['MedSection']['EventGroups']['Group'] as $Group) {
 
                     $data = array();
                     $data['prgid'] = $id;
@@ -184,25 +184,25 @@ class Model_Ipra extends Model
                     if (!empty($Group['Executor'])) {
                         $data['execut'] = $Group['Executor'];
                     }
-                if((!empty($Group['Need']))&&($Group['Need']=='true')) {
-                    $db0 = DB::insert('prg0_rhb', array_keys($data))
-                        ->values($data);
-                    self::ilog('prg', $db0->compile());
-                    $db0
-                        ->execute();
+                    if ((!empty($Group['Need'])) && ($Group['Need'] == 'true')) {
+                        $db0 = DB::insert('prg0_rhb', array_keys($data))
+                            ->values($data);
+                        self::ilog('prg', $db0->compile());
+                        $db0
+                            ->execute();
 
-                }else{
-                    DB::delete('prg0_rhb')
-                        ->where('prgid','=',$data['prgid'])
-                        ->where('typeid','=', $data['typeid'])
-                        ->execute();
+                    } else {
+                        DB::delete('prg0_rhb')
+                            ->where('prgid', '=', $data['prgid'])
+                            ->where('typeid', '=', $data['typeid'])
+                            ->execute();
+                    }
+
+                    ignore_type:
                 }
 
-                ignore_type:
             }
-
         }
-*/
         checkpoint:
     }
 
