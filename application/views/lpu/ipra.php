@@ -3,6 +3,24 @@
 </div>
 <?= $toolbar_cfg ?>
 <script type="text/javascript">
+<?php
+if(!empty($medorg_change)){
+?>
+var med_org =
+    [
+        {id: 0, text: '(Все организации)'},
+        <?php
+if(!empty($med_org)){
+foreach($med_org as $key=>$value){
+ ?>
+        {id: <?=$value['dicid']?>, name: '<?=htmlspecialchars(trim($value['name']))?>'},
+        <?php
+    }}
+    ?>
+    ];
+<?php
+}
+ ?>
     var search_applied = false;
     var sort_applied = false;
     var config = {
@@ -21,7 +39,7 @@
             padding: 0,
             margin: 10,
             panels: [
-                {type: 'top', minSize: 250},
+                {type: 'top', minSize: 250<?=(empty($medorg_change))?'':'+38'?>},
                 {type: 'main', minSize: 300}
             ]
         },
@@ -103,6 +121,16 @@
 
                 w2ui['person_detail'].clear();
                 var record = this.get(event.recid);
+                w2ui['person_detail'].toolbar.items[0].caption = '[!]  '+record.medorg_sender;
+                var medorg_id = record.medorg_id;
+                for (var i = 0; i < med_org.length; i++) {
+                    if (-1 < record.medorg_sender.indexOf(med_org[i].name) ) {
+                        medorg_id = med_org[i].id;
+                        w2ui['person_detail'].toolbar.items[0].caption = med_org[i].name;
+                    }
+                }
+                w2ui['person_detail'].toolbar.items[1].medorg_id = medorg_id;
+
                 w2ui['person_detail'].add([
                     {recid: 1, name: 'СНИЛС:', value: record.snils},
                     {recid: 2, name: 'ФИО:', value: record.lname+' '+record.fname+' '+record.sname},
@@ -116,13 +144,60 @@
                 ]);
                 w2ui['ipra_list'].clear();
                 w2ui['ipra_list'].add(record.ipra_list);
-
             }
         },
         person_detail: {
             header: 'Детали',
-            show: {header: true, columnHeaders: false},
+            show: {header: true, columnHeaders: false, toolbar: <?=(empty($medorg_change))?'false':'true'?>,
+                toolbarEdit: false,
+                toolbarReload: false,   // indicates if toolbar reload button is visible
+                toolbarColumns: false,   // indicates if toolbar columns button is visible
+                toolbarSearch: false,   // indicates if toolbar search controls are visible
+            },
             name: 'person_detail',
+            toolbar: {
+                items: [
+                    {
+                        type: 'menu',
+                        id: 'medorg',
+                        caption: '(не распределено)',
+                        icon: 'fa-table',
+                        count: <?=(!empty($med_org))?count($med_org):'0'?>,
+                        items: [
+                            {id: '0', text: '(не распределено)', icon: 'icon-page'},
+                            <?php
+                             if(!empty($med_org)){
+                             foreach($med_org as $value){
+                            ?>
+                            {
+                                id: '<?=$value['dicid']?>',
+                                text: '<?=htmlspecialchars(trim($value['name']))?>',
+                                icon: 'icon-page'
+                            },
+                            <?php
+                        }}
+                        ?>
+                        ]
+                    },
+                    {type: 'button', id: 'set_mo', caption: 'Применить'}
+                ],
+                onClick: function (event) {
+
+                    if (event.target == 'set_mo') {
+                        console.log(event.item.medorg_id);
+                        console.log(w2ui['person_list'].records);
+                    }
+                    if (event.target.substr(0, 7) == 'medorg:') {
+                        for (var i = 0; i < med_org.length; i++) {
+                            if (med_org[i].id == event.target.substr(7, event.target.length - 7)) {
+                                w2ui['person_detail'].toolbar.items[0].caption = med_org[i].name;
+                                w2ui['person_detail'].toolbar.items[1].medorg_id = med_org[i].id;
+                                w2ui['person_detail'].render();
+                            }
+                        }
+                    }
+                }
+            },
             columns: [
                 {
                     field: 'name',

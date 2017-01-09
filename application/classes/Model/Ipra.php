@@ -267,6 +267,7 @@ class Model_Ipra extends Model
             array('prg.prgnum', 'prgnum'),
             array('prg.prgdt', 'prgdt'),
             array('prg.prgenddt', 'prgenddt'),
+            array('prg.med_org_txt', 'medorg_sender'),
             array('prg.med_org_id', 'medorg'),
             array('prg.medorgexecutorid', 'medorgexecutorid')
         )

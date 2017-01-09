@@ -14,6 +14,9 @@ class Controller_Stat extends Controller_Tmp
         $id = $this->request->param('id');
         if(empty($id)) {
             $page = View::factory('lpu/ipra');
+            $page->medorg_change = true;
+            $menu = Model_Catalog::GetMedOrg(true);
+            $page->med_org = $menu;
             $session = Session::instance();
             $search = $session->get('search_string',false);
             if(!empty($search)) $search = json_decode($search,true);
