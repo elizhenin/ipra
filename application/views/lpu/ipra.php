@@ -121,34 +121,39 @@ foreach($med_org as $key=>$value){
 
                 w2ui['person_detail'].clear();
                 var record = this.get(event.recid);
-                w2ui['person_detail'].toolbar.items[0].caption = '[!]  '+record.medorg_sender;
+                <?php
+if(!empty($medorg_change)){
+?>
+                w2ui['person_detail'].toolbar.items[0].caption = '[!]  ' + record.medorg_sender;
                 var medorg_id = record.medorg_id;
                 for (var i = 0; i < med_org.length; i++) {
-                    if (-1 < record.medorg_sender.indexOf(med_org[i].name) ) {
+                    if (-1 < record.medorg_sender.indexOf(med_org[i].name)) {
                         medorg_id = med_org[i].id;
                         w2ui['person_detail'].toolbar.items[0].caption = med_org[i].name;
                     }
                 }
                 w2ui['person_detail'].toolbar.items[1].medorg_id = medorg_id;
-
-                w2ui['person_detail'].add([
-                    {recid: 1, name: 'СНИЛС:', value: record.snils},
-                    {recid: 2, name: 'ФИО:', value: record.lname+' '+record.fname+' '+record.sname},
-                    {recid: 3, name: 'Дата рождения:', value: record.bdate},
-                    {recid: 4, name: 'Пол:', value: record.gndr},
-                    {recid: 5, name: 'Номер протокола:', value: record.docnum},
-                    {recid: 6, name: 'Номер карты ИПРА:', value: record.prgnum},
-                    {recid: 7, name: 'Дата выдачи:', value: record.prgdt},
-                    {recid: 8, name: 'Дата окончания:', value: record.prgenddt},
-                    {recid: 9, name: 'Прикрепление МО:', value: record.medorg}
-                ]);
-                w2ui['ipra_list'].clear();
-                w2ui['ipra_list'].add(record.ipra_list);
-            }
-        },
-        person_detail: {
-            header: 'Детали',
-            show: {header: true, columnHeaders: false, toolbar: <?=(empty($medorg_change))?'false':'true'?>,
+                <?php
+                }
+                ?>
+                                w2ui['person_detail'].add([
+                                    {recid: 1, name: 'СНИЛС:', value: record.snils},
+                                    {recid: 2, name: 'ФИО:', value: record.lname+' '+record.fname+' '+record.sname},
+                                    {recid: 3, name: 'Дата рождения:', value: record.bdate},
+                                    {recid: 4, name: 'Пол:', value: record.gndr},
+                                    {recid: 5, name: 'Номер протокола:', value: record.docnum},
+                                    {recid: 6, name: 'Номер карты ИПРА:', value: record.prgnum},
+                                    {recid: 7, name: 'Дата выдачи:', value: record.prgdt},
+                                    {recid: 8, name: 'Дата окончания:', value: record.prgenddt},
+                                    {recid: 9, name: 'Прикрепление МО:', value: record.medorg}
+                                ]);
+                                w2ui['ipra_list'].clear();
+                                w2ui['ipra_list'].add(record.ipra_list);
+                            }
+                        },
+                        person_detail: {
+                            header: 'Детали',
+                            show: {header: true, columnHeaders: false, toolbar: <?=(empty($medorg_change))?'false':'true'?>,
                 toolbarEdit: false,
                 toolbarReload: false,   // indicates if toolbar reload button is visible
                 toolbarColumns: false,   // indicates if toolbar columns button is visible
