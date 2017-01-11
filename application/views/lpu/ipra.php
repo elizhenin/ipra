@@ -197,7 +197,8 @@ if(!empty($medorg_change)){
                         xhttp.open("POST", "/ajax/statpersonmedorgassign", false);
                         xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
-                           //
+                            w2ui['person_detail'].records[9].value = w2ui['person_detail'].toolbar.items[0].caption;
+                            w2ui['person_detail'].render();
                         };
                         xhttp.send(params);
                     }
