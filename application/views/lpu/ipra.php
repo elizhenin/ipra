@@ -194,7 +194,7 @@ if(!empty($medorg_change)){
                        //sending ajax for re-assign person to medorg
                         var xhttp = new XMLHttpRequest();
                         var params = 'cmd=assign_medorg&prgid=' + event.item.prg_id + '&medorgid='+event.item.medorg_id;
-                        xhttp.open("POST", "/ajax/statpersonmedorgassign", false);
+                        xhttp.open("POST", "/ajax/statpersonmedorgassign", true);
                         xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui['person_detail'].records[9].value = w2ui['person_detail'].toolbar.items[0].caption;
