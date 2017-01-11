@@ -637,4 +637,16 @@ class Controller_Ajax extends Controller
         }
     }
 
+    public function action_statpersonmedorgassign()
+    {
+        if ($this->request->method() == Request::POST) {
+            $cmd = $this->request->post('cmd');
+            if ($cmd == 'assign_medorg') {
+                $prgid = $this->request->post('prgid');
+                $medorgid = $this->request->post('medorgid');
+                die('success: '.$prgid.' '.$medorgid);
+            }
+        }
+    }
+
 } // End Ajax

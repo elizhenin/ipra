@@ -39,7 +39,7 @@ foreach($med_org as $key=>$value){
             padding: 0,
             margin: 10,
             panels: [
-                {type: 'top', minSize: 250<?=(empty($medorg_change))?'':'+38'?>},
+                {type: 'top', minSize: 250<?=(empty($medorg_change))?'':'+38'?>}, //for toolbar, when in 'stat' role
                 {type: 'main', minSize: 300}
             ]
         },
@@ -133,6 +133,7 @@ if(!empty($medorg_change)){
                     }
                 }
                 w2ui['person_detail'].toolbar.items[1].medorg_id = medorg_id;
+                w2ui['person_detail'].toolbar.items[1].prg_id = record.recid;
                 <?php
                 }
                 ?>
@@ -156,8 +157,8 @@ if(!empty($medorg_change)){
                             show: {header: true, columnHeaders: false, toolbar: <?=(empty($medorg_change))?'false':'true'?>,
                 toolbarEdit: false,
                 toolbarReload: false,   // indicates if toolbar reload button is visible
-                toolbarColumns: false,   // indicates if toolbar columns button is visible
-                toolbarSearch: false,   // indicates if toolbar search controls are visible
+                toolbarColumns: false,  // indicates if toolbar columns button is visible
+                toolbarSearch: false    // indicates if toolbar search controls are visible
             },
             name: 'person_detail',
             toolbar: {
@@ -190,7 +191,16 @@ if(!empty($medorg_change)){
 
                     if (event.target == 'set_mo') {
                         console.log(event.item.medorg_id);
-                        console.log(w2ui['person_list'].records);
+                       //sending ajax for re-assign person to medorg
+                        var selected = w2ui.ipra_hot.getSelection();
+                        var xhttp = new XMLHttpRequest();
+                        var body = 'cmd=assign_medorg';
+                            body = body + '&prgid=' + event.item.prg_id + '&medorgid='+event.item.medorg_id;
+                        xhttp.open("POST", "/ajax/statpersonmedorgassign" + '?' + body, false);
+                        xhttp.onreadystatechange = function () {
+                           //
+                        };
+                        xhttp.send(body);
                     }
                     if (event.target.substr(0, 7) == 'medorg:') {
                         for (var i = 0; i < med_org.length; i++) {
