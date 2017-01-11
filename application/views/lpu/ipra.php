@@ -193,13 +193,13 @@ if(!empty($medorg_change)){
                         console.log(event.item.medorg_id);
                        //sending ajax for re-assign person to medorg
                         var xhttp = new XMLHttpRequest();
-                        var body = 'cmd=assign_medorg';
-                            body = body + '&prgid=' + event.item.prg_id + '&medorgid='+event.item.medorg_id;
-                        xhttp.open("POST", "/ajax/statpersonmedorgassign" + '?' + body, false);
+                        var params = 'cmd=assign_medorg&prgid=' + event.item.prg_id + '&medorgid='+event.item.medorg_id;
+                        xhttp.open("POST", "/ajax/statpersonmedorgassign", false);
+                        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                            //
                         };
-                        xhttp.send(body);
+                        xhttp.send(params);
                     }
                     if (event.target.substr(0, 7) == 'medorg:') {
                         for (var i = 0; i < med_org.length; i++) {
