@@ -192,7 +192,6 @@ if(!empty($medorg_change)){
                     if (event.target == 'set_mo') {
                         console.log(event.item.medorg_id);
                        //sending ajax for re-assign person to medorg
-                        var selected = w2ui.ipra_hot.getSelection();
                         var xhttp = new XMLHttpRequest();
                         var body = 'cmd=assign_medorg';
                             body = body + '&prgid=' + event.item.prg_id + '&medorgid='+event.item.medorg_id;
