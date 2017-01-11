@@ -644,7 +644,7 @@ class Controller_Ajax extends Controller
             if ($cmd == 'assign_medorg') {
                 $prgid = $this->request->post('prgid');
                 $medorgid = $this->request->post('medorgid');
-                die('success: '.$prgid.' '.$medorgid);
+               Model_Ipra::AssocPerson($prgid,$medorgid);
             }
         }
     }

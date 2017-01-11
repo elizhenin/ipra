@@ -1180,7 +1180,6 @@ class Model_Ipra extends Model
         } else return false;
     }
 
-
     static function GetPersonsIpraTypeId($prgid)
     {
         $db = DB::select(
