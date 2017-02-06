@@ -111,7 +111,7 @@
                             csv = csv + "\n";
                         }
                         csv = $('<div/>').html(csv).text();
-                        saveTextAs('\ufeff' + csv, "Исполненные.csv");
+                        saveTextAs('\ufeff' + csv, "Неутвержденные.csv");
                     }
                     if (target.substr(0, 7) == 'medorg:') {
                         console.log(target.substr(7, target.length - 7));
