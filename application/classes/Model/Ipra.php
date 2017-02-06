@@ -699,6 +699,85 @@ class Model_Ipra extends Model
 
     }
 
+    static function GetIpraForeign($limit, $offset, $search) //TODO: make selecting foreign ipra
+    {
+        $hot_ids = DB::select(
+            array(DB::expr('COUNT("prg_rhb"."typeid")'), 'ct_id'),
+            array('prg.id', 'id')
+        )
+            ->from(array('prg0_rhb', 'prg_rhb'))
+            ->join(array('prg0', 'prg'), 'right')
+            ->on('prg_rhb.prgid', '=', 'prg.id');
+        if (!empty($search)) {
+            foreach ($search as $one) {
+                if ($one['field'] == 'med_org_id') {
+                    if (!empty($one['value'])) $hot_ids->and_where('prg.med_org_id', '=', $one['value']);
+                }
+            }
+        }
+           $hot_ids = $hot_ids
+             ->where('prg.foreign','=',true)
+            ->group_by('prg.id', 'prg_rhb.typeid')
+            ->order_by('prg.id')
+            ->execute()
+            ->as_array();
+
+        $ids = array();
+        if(!empty($hot_ids))
+            foreach($hot_ids as $one){
+                if($one['ct_id']==1)
+                    $ids[$one['id']] = $one['id'];
+            }
+        if(!empty($ids))
+            $db = DB::select(
+                array('prg.id','recid'),
+                array('prg.prgnum', 'prgnum'),
+                array('prg.snils', 'snils'),
+                array('prg.lname', 'lname'),
+                array('prg.fname', 'fname'),
+                array('prg.sname', 'sname'),
+                array('prg.bdate', 'bdate'),
+                array('prg.prgdt', 'prgdt'),
+                array('prg.prgenddt', 'prgenddt'),
+                array('med_org.name', 'med_org'),
+                array('med_org.dicid', 'med_org_id')
+            )
+                ->from(array('prg0', 'prg'))
+                ->join('med_org', 'left')
+                ->on('med_org.dicid', '=', 'prg.med_org_id')
+                ->where('med_org.parentid', '=', 0)
+                ->where('prg.id','IN',$ids)
+                ->order_by('prg.prgenddt','asc')
+                ->limit($limit)
+                ->offset($offset)
+                ->execute()
+                ->as_array();
+
+        if(!empty($db)){
+            $count =  DB::select(
+                array(DB::expr('COUNT("prg"."id")'), 'count')
+            )
+                ->from(array('prg0', 'prg'))
+                ->join('med_org', 'left')
+                ->on('med_org.dicid', '=', 'prg.med_org_id')
+                ->where('med_org.parentid', '=', 0)
+                ->where('prg.id','IN',$ids)
+                ->execute()
+                ->as_array();
+
+            $return['total'] = $count[0]['count'];
+            $return['records'] = $db;
+            $return['status'] = 'success';
+        }
+        else {
+            $return['status'] = 'error';
+            $return['message'] = 'Нету тут ничего..';
+        }
+        return $return;
+
+    }
+
+
     static function GetIpraReady($limit, $offset, $search)
     {
         $db = DB::select(

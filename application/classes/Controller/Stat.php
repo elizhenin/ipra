@@ -90,6 +90,16 @@ class Controller_Stat extends Controller_Tmp
         $this->page = $page;
     }
 
+    public function action_foreign()
+    {
+        $page = View::factory('stat/foreign/index');
+        $menu = Model_Catalog::GetMedOrg(true);
+        $page->med_org = $menu;
+        $page->toolbar_cfg = View::factory('stat/toolbar');
+        $this->page = $page;
+    }
+
+
     public function action_unapproved()
     {
         $page = View::factory('stat/unapproved/index');
