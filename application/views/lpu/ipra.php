@@ -72,7 +72,7 @@ foreach($med_org as $key=>$value){
                         });
                     }
                     if (event.target == 'csv') {
-                        var csv = 'Дата выдачи;Дата окончания;Фамилия;Иия;Отчество;Дата рождения;№ ИПРА;СНИЛС;' + "\n";
+                        var csv = 'Дата выдачи;Дата окончания;Фамилия;Иия;Отчество;Дата рождения;№ ИПРА;СНИЛС;Мед.организация;' + "\n";
                         for (i = 1; i <= w2ui.person_list.records.length; i++) {
                             csv = csv + w2ui.person_list.records[i - 1].prgdt + ';';
                             csv = csv + w2ui.person_list.records[i - 1].prgenddt + ';';
@@ -82,6 +82,7 @@ foreach($med_org as $key=>$value){
                             csv = csv + w2ui.person_list.records[i - 1].bdate + ';';
                             csv = csv + w2ui.person_list.records[i - 1].prgnum + ';';
                             csv = csv + w2ui.person_list.records[i - 1].snils.trim() + ';';
+                            csv = csv + w2ui.person_list.records[i - 1].medorg.trim() + ';';
                             csv = csv + "\n";
                         }
                         csv = $('<div/>').html(csv).text();
