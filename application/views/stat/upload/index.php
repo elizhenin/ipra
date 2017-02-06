@@ -76,7 +76,7 @@ foreach($med_org as $key=>$value){
                 ],
                 onClick: function (target, data) {
                     if (target == 'csv') {
-                        var csv = 'RECID;Дата рождения;Фамилия;Имя;Отчество;СНИЛС;' + "\n";
+                        var csv = 'RECID;Дата рождения;Фамилия;Имя;Отчество;СНИЛС;Мед.орг.;' + "\n";
                         for (i = 1; i <= w2ui.ipra_assoc.records.length; i++) {
 //
                             {
@@ -86,6 +86,7 @@ foreach($med_org as $key=>$value){
                                 csv = csv + w2ui.ipra_assoc.records[i - 1].fname + ';';
                                 csv = csv + w2ui.ipra_assoc.records[i - 1].sname + ';';
                                 csv = csv + w2ui.ipra_assoc.records[i - 1].snils + ';';
+                                csv = csv + w2ui.ipra_assoc.records[i - 1].med_org_txt + ';';
                                 csv = csv + "\n";
                             }
                         }
@@ -96,7 +97,7 @@ foreach($med_org as $key=>$value){
                 }
             },
             columns: [
-                {field: 'prgnum', caption: '№ ИПР/ПРП', size: '10%', sortable: true},
+                {field: 'prgnum', caption: '№ ИПРА', size: '10%', sortable: true},
                 {field: 'med_org_txt', caption: 'Мед.организация из XML', size: '40%', sortable: true}
             ],
             onDblClick: function (event) {
