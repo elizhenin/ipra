@@ -1022,7 +1022,7 @@ class Model_Ipra extends Model
             ->where('med_org.parentid', '=', '0')
             ->or_where('prg.med_org_id', '=', '0')
             ->and_where_close()
-            ->where('med_org.foreign', '=', false);
+            ->where('prg.foreign', '=', false);
         if (!empty($from)) {
             $db->where('prg.prgdt', '>=', $from);
         }
