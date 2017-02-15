@@ -1032,7 +1032,7 @@ class Model_Ipra extends Model
         $db->group_by('med_org.dicid')
             ->group_by('med_org.name')
             ->order_by('ipracount', 'DESC');
-        self::slog('med_org,prg_rhb', $db->compile());
+        self::slog('prg,med_org,prg_rhb', $db->compile());
         $db = $db
             ->execute()
             ->as_array();
