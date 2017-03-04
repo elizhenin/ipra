@@ -345,7 +345,7 @@ class Controller_Ajax extends Controller
             $sort = $this->request->query('sort');
             $cmd = $this->request->query('cmd');
             if ($cmd == 'get-records') {
-                $return = Model_Ipra::GetPersonsUnassoc($sort, $limit, $offset);
+                $return = Model_Ipra::GetIpraForeign($sort, $limit, $offset);
                 if (!empty($return['total']))
                     foreach ($return['records'] as $key=>$one) {
                         $one['med_org_txt'] = htmlspecialchars(trim($one['med_org_txt']));
