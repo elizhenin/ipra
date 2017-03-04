@@ -348,9 +348,6 @@ class Controller_Ajax extends Controller
                 $return = Model_Ipra::GetPersonsUnassoc($sort, $limit, $offset);
                 if (!empty($return['total']))
                     foreach ($return['records'] as $key=>$one) {
-
-                        $one['recid'] = $one['id'];
-                        unset($one['id']);
                         $one['med_org_txt'] = htmlspecialchars(trim($one['med_org_txt']));
                         $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
 //                        unset($one['lname'], $one['fname'], $one['sname']);
