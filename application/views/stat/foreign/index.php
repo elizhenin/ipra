@@ -52,7 +52,7 @@
                             csv = csv + w2ui.ipra_foreign.records[i - 1].bdate + ';';
                             csv = csv + w2ui.ipra_foreign.records[i - 1].snils.trim() + ';';
                             csv = csv + w2ui.ipra_foreign.records[i - 1].prgnum.trim() + ';';
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].med_org.trim() + ';';
+                            csv = csv + w2ui.ipra_foreign.records[i - 1].med_org_txt.trim() + ';';
                             csv = csv + "\n";
                         }
                         csv = $('<div/>').html(csv).text();
@@ -68,7 +68,7 @@
                 {field: 'bdate', caption: 'Дата рождения', size: '16%', sortable: false},
                 {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: false},
                 {field: 'prgnum', caption: 'Номер ИПРА', size: '16%', sortable: false},
-                {field: 'med_org', caption: 'Мед.орг.', size: '26%', sortable: false}
+                {field: 'med_org_txt', caption: 'Мед.орг.', size: '26%', sortable: false}
             ],
         onLoad: function(event) {
             event.onComplete = function(){
