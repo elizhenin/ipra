@@ -288,6 +288,33 @@ class Controller_Ajax extends Controller
         }
     }
 
+    public function action_statipraunassoclist()
+    {
+        if ($this->request->method() == Request::GET) {
+            $limit = $this->request->query('limit');
+            $offset = $this->request->query('offset');
+            $sort = $this->request->query('sort');
+            $cmd = $this->request->query('cmd');
+            if ($cmd == 'get-records') {
+                $persons = Model_Ipra::GetPersonsUnassoc($sort, $limit, $offset);
+                $return['status'] = 'success';
+                $return['total'] = Model_Ipra::CountPersonsUnassoc();
+                if (!empty($return['total']))
+                    foreach ($persons as $one) {
+
+                        $one['recid'] = $one['id'];
+                        unset($one['id']);
+                        $one['complete'] = false;
+                        $one['med_org_txt'] = htmlspecialchars(trim($one['med_org_txt']));
+                        $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
+//                        unset($one['lname'], $one['fname'], $one['sname']);
+                        $return['records'][] = $one;
+                    }
+                echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));
+            }
+        }
+    }
+
     public function action_statipraassoclistcomplete()
     {
         if ($this->request->method() == Request::POST) {

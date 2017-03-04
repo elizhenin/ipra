@@ -15,7 +15,8 @@
                     {id: 'hot', text: 'Срочные', icon: 'icon-page'},
                     {id: 'unapproved', text: 'Неутвержденные', icon: 'icon-page'},
                     {id: 'approved', text: 'Отгруженные', icon: 'icon-page'},
-                    {id: 'foreign', text: 'Неподведомственные', icon: 'icon-page'}
+                    {id: 'foreign', text: 'Неподведомственные', icon: 'icon-page'},
+                    {id: 'unassoc', text: 'Несопоставленные', icon: 'icon-page'}
 
                 ]
             },

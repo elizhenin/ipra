@@ -547,7 +547,7 @@ class Model_Ipra extends Model
     static function GetPersonsUnassoc($sort, $limit, $offset)
     {
         $db = DB::select(
-            'id', 'prgnum', 'prgdt', 'med_org_txt', 'med_org_id',
+            'id', 'prgnum', 'prgdt', 'prgenddt', 'med_org_txt', 'med_org_id',
             'fname', 'lname', 'sname', 'bdate', 'snils'
         )
             ->from(array('prg0', 'prg'))
