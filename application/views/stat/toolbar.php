@@ -9,7 +9,7 @@
                 id: 'journals',
                 caption: 'Журналы',
                 icon: 'fa-table',
-                count: 3,
+                count: 4,
                 items: [
 //                    {id:0,text:''},
                     {id: 'hot', text: 'Срочные', icon: 'icon-page'},

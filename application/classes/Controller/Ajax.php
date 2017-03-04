@@ -342,27 +342,22 @@ class Controller_Ajax extends Controller
         if ($this->request->method() == Request::GET) {
             $limit = $this->request->query('limit');
             $offset = $this->request->query('offset');
-            $search = $this->request->query('search');
+            $sort = $this->request->query('sort');
             $cmd = $this->request->query('cmd');
             if ($cmd == 'get-records') {
-                $return = Model_Ipra::GetIpraHot($limit, $offset, $search);
+                $return = Model_Ipra::GetPersonsUnassoc($sort, $limit, $offset);
+                if (!empty($return['total']))
+                    foreach ($return['records'] as $key=>$one) {
 
-                if (!empty($return['total'])){
-                    $persons = $return['records'];
-                    unset($return['records']);
-                    foreach ($persons as $one) {
+                        $one['recid'] = $one['id'];
+                        unset($one['id']);
+                        $one['med_org_txt'] = htmlspecialchars(trim($one['med_org_txt']));
                         $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
-                        unset($one['lname']);
-                        unset($one['fname']);
-                        unset($one['sname']);
-                        $one['complete'] = false;
-                        $one['med_org'] = htmlspecialchars(trim($one['med_org']));
-                        $one['snils'] = htmlspecialchars(trim($one['snils']));
-                        $return['records'][] = $one;
-                    }}
+//                        unset($one['lname'], $one['fname'], $one['sname']);
+                        $return['records'][$key] = $one;
+                    }
                 echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));
             }
-
         }
     }
 

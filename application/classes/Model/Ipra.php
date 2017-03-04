@@ -699,69 +699,38 @@ class Model_Ipra extends Model
 
     }
 
-    static function GetIpraForeign($limit, $offset, $search) //TODO: make selecting foreign ipra
+    static function GetIpraForeign($sort, $limit, $offset) //TODO: make selecting foreign ipra
     {
-        $hot_ids = DB::select(
-            array(DB::expr('COUNT("prg_rhb"."typeid")'), 'ct_id'),
-            array('prg.id', 'id')
+        $db = DB::select(
+            'id', 'prgnum', 'prgdt', 'med_org_txt',
+            'fname', 'lname', 'sname', 'bdate', 'snils'
         )
-            ->from(array('prg0_rhb', 'prg_rhb'))
-            ->join(array('prg0', 'prg'), 'right')
-            ->on('prg_rhb.prgid', '=', 'prg.id');
-        if (!empty($search)) {
-            foreach ($search as $one) {
-                if ($one['field'] == 'med_org_id') {
-                    if (!empty($one['value'])) $hot_ids->and_where('prg.med_org_id', '=', $one['value']);
-                }
-            }
+            ->from(array('prg0', 'prg'))
+            ->where('prg.foreign', '=', true)
+            ->where('prg.mseid', '!=', '0');
+        if (!empty($sort)) {
+            foreach ($sort as $one)
+                $db->order_by($one['field'], $one['direction']);
+        } else {
+            $db->order_by('prgdt', 'DESC');
         }
-           $hot_ids = $hot_ids
-             ->where('prg.foreign','=',true)
-            ->group_by('prg.id', 'prg_rhb.typeid')
-            ->order_by('prg.id')
+
+        if (!empty($limit))
+            $db
+                ->limit($limit)
+                ->offset($offset);
+        self::slog('prg', $db->compile());
+
+        $db = $db
             ->execute()
             ->as_array();
+        if (!empty($db)) return $db;
 
-        $ids = array();
-        if(!empty($hot_ids))
-            foreach($hot_ids as $one){
-                if($one['ct_id']==1)
-                    $ids[$one['id']] = $one['id'];
-            }
-        if(!empty($ids))
-            $db = DB::select(
-                array('prg.id','recid'),
-                array('prg.prgnum', 'prgnum'),
-                array('prg.snils', 'snils'),
-                array('prg.lname', 'lname'),
-                array('prg.fname', 'fname'),
-                array('prg.sname', 'sname'),
-                array('prg.bdate', 'bdate'),
-                array('prg.prgdt', 'prgdt'),
-                array('prg.prgenddt', 'prgenddt'),
-                array('med_org.name', 'med_org'),
-                array('med_org.dicid', 'med_org_id')
-            )
-                ->from(array('prg0', 'prg'))
-                ->join('med_org', 'left')
-                ->on('med_org.dicid', '=', 'prg.med_org_id')
-                ->where('med_org.parentid', '=', 0)
-                ->where('prg.id','IN',$ids)
-                ->order_by('prg.prgenddt','asc')
-                ->limit($limit)
-                ->offset($offset)
-                ->execute()
-                ->as_array();
 
         if(!empty($db)){
-            $count =  DB::select(
-                array(DB::expr('COUNT("prg"."id")'), 'count')
-            )
+            $count = DB::select(array(DB::expr('COUNT("id")'), 'count'))
                 ->from(array('prg0', 'prg'))
-                ->join('med_org', 'left')
-                ->on('med_org.dicid', '=', 'prg.med_org_id')
-                ->where('med_org.parentid', '=', 0)
-                ->where('prg.id','IN',$ids)
+                ->where('prg.foreign', '=', true)
                 ->execute()
                 ->as_array();
 
