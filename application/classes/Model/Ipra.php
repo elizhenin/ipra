@@ -702,7 +702,7 @@ class Model_Ipra extends Model
     static function GetIpraForeign($sort, $limit, $offset) //TODO: make selecting foreign ipra
     {
         $db = DB::select(
-            'id', 'prgnum', 'prgdt', 'med_org_txt',
+            array('id','recid'), 'prgnum', 'prgdt', 'med_org_txt',
             'fname', 'lname', 'sname', 'bdate', 'snils'
         )
             ->from(array('prg0', 'prg'))
