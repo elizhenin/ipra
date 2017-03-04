@@ -350,7 +350,7 @@ class Controller_Ajax extends Controller
                     foreach ($return['records'] as $key=>$one) {
                         $one['med_org_txt'] = htmlspecialchars(trim($one['med_org_txt']));
                         $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
-//                        unset($one['lname'], $one['fname'], $one['sname']);
+                        unset($one['lname'], $one['fname'], $one['sname']);
                         $return['records'][$key] = $one;
                     }
                 echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));
