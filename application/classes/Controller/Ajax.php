@@ -308,6 +308,7 @@ class Controller_Ajax extends Controller
                         $one['med_org_txt'] = htmlspecialchars(trim($one['med_org_txt']));
                         $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
 //                        unset($one['lname'], $one['fname'], $one['sname']);
+                        $one['snils'] = htmlspecialchars(trim($one['snils']));
                         $return['records'][] = $one;
                     }
                 echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));
@@ -378,6 +379,7 @@ class Controller_Ajax extends Controller
                         $one['med_org_txt'] = htmlspecialchars(trim($one['med_org_txt']));
                         $one['fio'] = trim($one['lname']) . ' ' . trim($one['fname']) . ' ' . trim($one['sname']);
                         unset($one['lname'], $one['fname'], $one['sname']);
+                        $one['snils'] = htmlspecialchars(trim($one['snils']));
                         $return['records'][$key] = $one;
                     }
                 echo stripslashes(json_encode($return, JSON_UNESCAPED_UNICODE));

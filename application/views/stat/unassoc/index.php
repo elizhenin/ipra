@@ -62,12 +62,12 @@
                 }
             },
             columns: [
-                {field: 'prgdt', caption: 'Дата выдачи', size: '16%', sortable: false},
-                {field: 'prgenddt', caption: 'Дата окончания', size: '16%', sortable: false},
+                {field: 'prgdt', caption: 'Дата выдачи', size: '16%', sortable: true},
+                {field: 'prgenddt', caption: 'Дата окончания', size: '16%', sortable: true},
                 {field: 'fio', caption: 'ФИО', size: '16%', sortable: false},
-                {field: 'bdate', caption: 'Дата рождения', size: '16%', sortable: false},
-                {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: false},
-                {field: 'prgnum', caption: 'Номер ИПРА', size: '16%', sortable: false},
+                {field: 'bdate', caption: 'Дата рождения', size: '16%', sortable: true},
+                {field: 'snils', caption: 'СНИЛС', size: '16%', sortable: true},
+                {field: 'prgnum', caption: 'Номер ИПРА', size: '16%', sortable: true},
                 {field: 'med_org_txt', caption: 'Мед.орг.', size: '26%', sortable: false}
             ],
         onLoad: function(event) {
