@@ -724,7 +724,6 @@ class Model_Ipra extends Model
         $db = $db
             ->execute()
             ->as_array();
-        if (!empty($db)) return $db;
 
 
         if(!empty($db)){
