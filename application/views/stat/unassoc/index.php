@@ -45,14 +45,14 @@
 
                     if (target == 'csv') {
                         var csv = 'Дата выдачи;Дата окончания;ФИО;Дата рождения;СНИЛС;№ ИПРА;Мед.организация;' + "\n";
-                        for (i = 1; i <= w2ui.ipra_foreign.records.length; i++) {
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].prgdt + ';';
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].prgenddt + ';';
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].fio + ';';
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].bdate + ';';
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].snils.trim() + ';';
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].prgnum.trim() + ';';
-                            csv = csv + w2ui.ipra_foreign.records[i - 1].med_org_txt.trim() + ';';
+                        for (i = 1; i <= w2ui.ipra_unassoc.records.length; i++) {
+                            csv = csv + w2ui.ipra_unassoc.records[i - 1].prgdt + ';';
+                            csv = csv + w2ui.ipra_unassoc.records[i - 1].prgenddt + ';';
+                            csv = csv + w2ui.ipra_unassoc.records[i - 1].fio + ';';
+                            csv = csv + w2ui.ipra_unassoc.records[i - 1].bdate + ';';
+                            csv = csv + w2ui.ipra_unassoc.records[i - 1].snils.trim() + ';';
+                            csv = csv + w2ui.ipra_unassoc.records[i - 1].prgnum.trim() + ';';
+                            csv = csv + w2ui.ipra_unassoc.records[i - 1].med_org_txt.trim() + ';';
                             csv = csv + "\n";
                         }
                         csv = $('<div/>').html(csv).text();
