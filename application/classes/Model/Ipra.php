@@ -1073,7 +1073,8 @@ class Model_Ipra extends Model
             ->and_where_open()
             ->where('med_org.parentid', '=', '0')
             ->or_where('prg.med_org_id', '=', '0')
-            ->and_where_close();
+            ->and_where_close()
+            ->where('prg.mseid', '!=', '0');
         if (!empty($from)) {
             $db->where('prg.prgdt', '>=', $from);
         }
@@ -1083,7 +1084,7 @@ class Model_Ipra extends Model
         $db->group_by('med_org.dicid')
             ->group_by('med_org.name')
             ->order_by('persons', 'DESC');
-        self::slog('med_org,prg_rhb', $db->compile());
+        self::slog('med_org,prg', $db->compile());
         $db = $db
             ->execute()
             ->as_array();
@@ -1117,7 +1118,8 @@ class Model_Ipra extends Model
         )
             ->from(array('prg0_rhb', 'prg_rhb'))
             ->join(array('prg0', 'prg'), 'right')
-            ->on('prg_rhb.prgid', '=', 'prg.id');
+            ->on('prg_rhb.prgid', '=', 'prg.id')
+            ->where('prg.mseid', '!=', '0');
         if (!empty($from)) {
             $persons->where('prg.prgdt', '>=', $from);
         }
