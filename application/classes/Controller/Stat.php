@@ -49,13 +49,13 @@ class Controller_Stat extends Controller_Tmp
                     foreach($by_line as $row){
                         if(!empty($row)) {
                             $columns = explode(';', $row);
-                            $med_org = Model_Catalog::GetOneMedOrgBySMO($columns[8]);
-                            $person = Model_Ipra::GetOnePerson((int)$columns[1]);
+                            $med_org = Model_Catalog::GetOneMedOrgBySMO($columns[7]);
+                            $person = Model_Ipra::GetOnePerson((int)$columns[0]);
                             if(!empty($person)){
                                 if(!empty($med_org)){
                                     Model_Ipra::AssocPerson($person['id'], $med_org['dicid']);
                                 }else{
-                                    if(Model_Catalog::GetOneForeignMedOrgBySMO($columns[8])){
+                                    if(Model_Catalog::GetOneForeignMedOrgBySMO($columns[7])){
                                         Model_Ipra::ForeignPerson($person['id']);
                                     }
                                 }
