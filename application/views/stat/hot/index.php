@@ -30,7 +30,7 @@
 
         ipra_hot: {
             name: 'ipra_hot',
-            url: '/ajax/statiprahotlist',
+            url: '/api/statiprahotlist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список истекающих и просроченных ИПРА',
@@ -95,7 +95,7 @@
                         for (i = 0; i < selected.length; i++) {
                             body = body + '&search['+i+'][field]=prgdt&search['+i+'][value]=' + encodeURIComponent(w2ui.ipra_ready.get(selected[i]).prgnum.trim());
                         }
-                        xhttp.open("GET", "/ajax/lpupersonlist" + '?' + body, false);
+                        xhttp.open("GET", "/api/lpupersonlist" + '?' + body, false);
                         xhttp.onreadystatechange = function () {
                            location.href = 'ipra';
                         };
@@ -127,7 +127,7 @@
                                     id: 'medorg_name',
                                     html: med_org[i].name
                                 });
-                                w2ui.ipra_hot.url = '/ajax/statiprahotlist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
+                                w2ui.ipra_hot.url = '/api/statiprahotlist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
                                 w2ui.ipra_hot.reload();
                                 w2ui.ipra_hot.med_org_id = med_org[i].id;
                             }
@@ -144,7 +144,7 @@
                         for (i = 0; i < selected.length; i++) {
                             body = body + '&selected[]=' + selected[i];
                         }
-                        xhttp.open("GET", "/ajax/statiprareadylist" + '?' + body, false);
+                        xhttp.open("GET", "/api/statiprareadylist" + '?' + body, false);
 //                        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui.ipra_hot.reload();

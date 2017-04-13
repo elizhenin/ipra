@@ -50,7 +50,7 @@
     var config = {
         user_edit: {
             name: 'user_edit',
-            url: '/ajax/usersupdate',
+            url: '/api/usersupdate',
             fields: [
                 {name: 'login', type: 'text', required: true},
                 {name: 'password', type: 'password', required: true},

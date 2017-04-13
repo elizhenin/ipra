@@ -38,7 +38,7 @@ foreach($medorg as $key=>$value){
         users_list: {
             name: 'users_list',
             header: 'Список пользователей',
-            url: '/ajax/userlist',
+            url: '/api/userlist',
             limit:50,
             method: 'GET',
             show: {
@@ -73,7 +73,7 @@ foreach($medorg as $key=>$value){
                     var xhttp = new XMLHttpRequest();
                     var body = 'recid=' + encodeURIComponent(event.recid) +
                         '&cmd=' + encodeURIComponent('switch-active');
-                    xhttp.open("POST", "/ajax/usersupdate", false);
+                    xhttp.open("POST", "/api/usersupdate", false);
                     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhttp.onreadystatechange = function () {
                         w2ui.users_list.reload();
@@ -95,7 +95,7 @@ foreach($medorg as $key=>$value){
         },
         users_assoc: {
             name: 'users_assoc',
-            url: '/ajax/adminusersassoclist',
+            url: '/api/adminusersassoclist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Соответствие мед.организациям',
@@ -128,7 +128,7 @@ foreach($medorg as $key=>$value){
                         var body = 'med_org_id=' + encodeURIComponent(w2ui.users_assoc.records[event.index].med_org_id) +
                             '&id=' + encodeURIComponent(event.recid) +
                             '&cmd=' + encodeURIComponent('assoc-medorg');
-                        xhttp.open("POST", "/ajax/adminusersassoclistcomplete", false);
+                        xhttp.open("POST", "/api/adminusersassoclistcomplete", false);
                         xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui.users_list.reload();

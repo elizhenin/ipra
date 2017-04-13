@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Ajax extends Controller
+class Controller_Api extends Controller
 {
 
     public function before()

@@ -6,7 +6,7 @@
 
         unassoc: {
             name: 'unassoc',
-            url: '/ajax/lpupersonlist?unassoc=1',
+            url: '/api/lpupersonlist?unassoc=1',
             limit: 0,
             method: 'GET', // need this to avoid 412 error on Safari
             show: {
@@ -26,7 +26,7 @@
                         var xhttp = new XMLHttpRequest();
                         var body = 'id=' + encodeURIComponent(w2ui.unassoc.crecid) +
                             '&cmd=' + encodeURIComponent('save-record');
-                        xhttp.open("POST", "/ajax/statipraassoclistcomplete", false);
+                        xhttp.open("POST", "/api/statipraassoclistcomplete", false);
                         xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui.unassoc.reload();

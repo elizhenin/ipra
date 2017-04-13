@@ -15,7 +15,7 @@
         },
         person_list: {
             name: 'person_list',
-            url: '/ajax/lpuoutgoinglist',
+            url: '/api/lpuoutgoinglist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список направленных пациентов',

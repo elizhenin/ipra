@@ -3,7 +3,7 @@
 </div>
 <script type="text/javascript">
     function openPopup() {
-        w2alert('Неправильный запрос.<br><br>Нажмите [ОК] для перехода на главный экран', '404 ERROR',function () {
+        w2alert('Неправильный запрос.<br><br>Нажмите [ОК] для перехода на главный экран', 'API ERROR',function () {
             document.location.href = '/';
         });
     }

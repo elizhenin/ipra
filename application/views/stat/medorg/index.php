@@ -49,7 +49,7 @@
                 }
             }
         },
-        url: '/ajax/medorglist',
+        url: '/api/medorglist',
         method: 'POST',
         limit: 0,
 

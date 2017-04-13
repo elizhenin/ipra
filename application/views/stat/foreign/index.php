@@ -18,7 +18,7 @@
 
         ipra_foreign: {
             name: 'ipra_foreign',
-            url: '/ajax/statipraforeignlist',
+            url: '/api/statipraforeignlist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список ИПРА пациентов МО, не подведомственных ДЗ ВО',

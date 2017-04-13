@@ -17,7 +17,7 @@
         ipra_edit: {
             name: 'ipra_edit',
             header: 'Редактирование',
-            formURL: '/ajax/lpuipraeditform/<?=$typeid?>',
+            formURL: '/api/lpuipraeditform/<?=$typeid?>',
             recid: <?=(!empty($id))?$id:''?>,
             url: '/ajax/lpuipraeditformrecord',
             fields: [

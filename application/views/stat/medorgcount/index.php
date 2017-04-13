@@ -22,7 +22,7 @@
                 footer: true,
                 toolbarSearch: false
             },
-            url: '/ajax/medorgcount?<?=(!empty($from))?'from='.$from.'&':''?><?=(!empty($to))?'to='.$to:''?>',
+            url: '/api/medorgcount?<?=(!empty($from))?'from='.$from.'&':''?><?=(!empty($to))?'to='.$to:''?>',
             method: 'POST',
             limit: 0,
             toolbar: {

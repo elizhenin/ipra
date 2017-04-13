@@ -18,7 +18,7 @@
 
         ipra_foreign: {
             name: 'ipra_unassoc',
-            url: '/ajax/statipraunassoclist',
+            url: '/api/statipraunassoclist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Нераспределенные по МО',

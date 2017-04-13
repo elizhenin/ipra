@@ -71,7 +71,7 @@
     var config = {
         outgoing_edit: {
             name: 'outgoing_edit',
-            url: '/ajax/lpuoutgoingupdate',
+            url: '/api/lpuoutgoingupdate',
             fields: [
                 {name: 'dt', type: 'date', options: {format: 'yyyy-mm-dd'}, required: true},
                 {name: 'lname', type: 'text', required: true},

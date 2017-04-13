@@ -44,8 +44,8 @@
             $().w2form({
                 name: 'userprofileform',
                 style: 'border: 0px; background-color: transparent;',
-                formURL: '/ajax/userprofileform',
-                url: '/ajax/userprofileformcomplete',
+                formURL: '/api/userprofileform',
+                url: '/api/userprofileformcomplete',
                 fields: [
                     { field: 'id', type: 'hidden', required: true },
                     { field: 'login', type: 'text', required: true },

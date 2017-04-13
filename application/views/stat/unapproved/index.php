@@ -30,7 +30,7 @@
 
         ipra_ready: {
             name: 'ipra_ready',
-            url: '/ajax/statiprareadylist',
+            url: '/api/statiprareadylist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список готовых ИПРА',
@@ -123,7 +123,7 @@
                                     id: 'medorg_name',
                                     html: med_org[i].name
                                 });
-                                w2ui.ipra_ready.url = '/ajax/statiprareadylist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
+                                w2ui.ipra_ready.url = '/api/statiprareadylist' + '?search[0][field]=med_org_id&search[0][value]=' + med_org[i].id;
                                 w2ui.ipra_ready.reload();
                                 w2ui.ipra_ready.med_org_id = med_org[i].id;
                             }
@@ -140,7 +140,7 @@
                         for (i = 0; i < selected.length; i++) {
                             body = body + '&selected[]=' + selected[i];
                         }
-                        xhttp.open("GET", "/ajax/statiprareadylist" + '?' + body, false);
+                        xhttp.open("GET", "/api/statiprareadylist" + '?' + body, false);
 //                        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui.ipra_ready.reload();
