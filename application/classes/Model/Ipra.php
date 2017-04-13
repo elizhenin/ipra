@@ -35,6 +35,32 @@ class Model_Ipra extends Model
         Model_Syslog::TableDelete($user['id'], $table, $recid, $sql);
     }
 
+    static function RegenSearchStr($id)
+    {
+        $record = DB::select()
+            ->from('prg0')
+            ->where('id','=',$id)
+            ->limit(1)
+            ->execute()
+            ->as_array();
+        if(!empty($record)){
+            $r = $record[0];
+            $search_str = trim($r['dt']).' '.
+                trim($r['snils']).' '.
+                trim($r['lname']).' '.
+                trim($r['fname']).' '.
+                trim($r['sname']).' '.
+                trim($r['bdate']).' '.
+                trim($r['prgnum']).' '.
+                trim($r['prgdt']).' '.
+                trim($r['prgenddt']);
+            DB::update('prg0')
+                ->set(array('search'=>$search_str))
+                ->where('id','=',$id)
+                ->execute();
+        }
+    }
+
     static function InsertXML($xml)
     {
         $xml = str_replace('ct:', '', $xml);
@@ -146,6 +172,7 @@ class Model_Ipra extends Model
                 ->as_array();
             $id = $db[0]['id'];
 
+//insert prg_rhb
 
             if (!empty($xml['MedSection'])) {
                 if (!(key($xml['MedSection']['EventGroups']['Group']) == '0')) {
@@ -203,6 +230,10 @@ class Model_Ipra extends Model
 
             }
         }
+
+        //generate search
+       self::RegenSearchStr($id);
+
         checkpoint:
     }
 
@@ -221,8 +252,9 @@ class Model_Ipra extends Model
             $db = DB::insert('prg0', array_keys($data))
                 ->values($data);
             self::ilog('prg', $db->compile());
-            $db
+            $db =$db
                 ->execute();
+            self::RegenSearchStr($db[0]);
 
         } else {
             $db = DB::update('prg0')
@@ -231,7 +263,9 @@ class Model_Ipra extends Model
             self::ulog('prg', $data['id'], $db->compile());
             $db
                 ->execute();
+            self::RegenSearchStr($data['id']);
         }
+
     }
 
     static function DeletePersons($records)
