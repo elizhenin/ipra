@@ -249,13 +249,24 @@ class Model_Ipra extends Model
             $session = Session::instance();
             $user = $session->get('user', false);
             $data['med_org_id'] = $user['med_org_id'];
+            $r = array(
+                'snils'=>'','lname'=>'','fname'=>'','sname'=>'','bdate'=>'','prgnum'=>'','prgdt'=>'','prgenddt'=>''
+            );
+            foreach($data as $key=>$value) $r[$key] = $value;
+            $search_str = trim($r['dt']).' '.
+                trim($r['snils']).' '.
+                trim($r['lname']).' '.
+                trim($r['fname']).' '.
+                trim($r['sname']).' '.
+                trim($r['bdate']).' '.
+                trim($r['prgnum']).' '.
+                trim($r['prgdt']).' '.
+                trim($r['prgenddt']);
+            $data['search'] = $search_str;
             $db = DB::insert('prg0', array_keys($data))
                 ->values($data);
             self::ilog('prg', $db->compile());
-            $db =$db
-                ->execute();
-            self::RegenSearchStr($db[0]);
-
+            $db->execute();
         } else {
             $db = DB::update('prg0')
                 ->set($data)
