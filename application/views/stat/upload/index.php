@@ -31,8 +31,8 @@ foreach($med_org as $key=>$value){
         ipra_upload: {
             name: 'ipra_upload',
             header: 'Загрузка XML',
-            formURL: '/ajax/statiprauploadform',
-            url: '/ajax/xmlupload',
+            formURL: '/api/statiprauploadform',
+            url: '/api/xmlupload',
             fields: [
                 {field: 'file', type: 'file'}
             ],
@@ -51,7 +51,7 @@ foreach($med_org as $key=>$value){
 
         ipra_assoc: {
             name: 'ipra_assoc',
-            url: '/ajax/statipraassoclist',
+            url: '/api/statipraassoclist',
             limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список несопоставленных ИПРА',
@@ -125,7 +125,7 @@ foreach($med_org as $key=>$value){
                         var body = 'med_org_id=' + encodeURIComponent(w2ui.ipra_assoc.records[event.index].med_org_id) +
                             '&id=' + encodeURIComponent(event.recid) +
                             '&cmd=' + encodeURIComponent('save-record');
-                        xhttp.open("POST", "/ajax/statipraassoclistcomplete", false);
+                        xhttp.open("POST", "/api/statipraassoclistcomplete", false);
                         xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhttp.onreadystatechange = function () {
                             w2ui.ipra_assoc.reload();
