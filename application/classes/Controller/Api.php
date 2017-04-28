@@ -167,7 +167,7 @@ class Controller_Api extends Controller
                 if(($record['resid']!="false")&&(!empty($record['result']))) {$check = false;$err_message = 'Неверно указан результат исполнения';}
 
                 if ($check) {
-                    $record['recid'] = $recid;
+                   // $record['recid'] = $recid;
                     Model_Ipra::UpdPersonsIpraFull($record);
                     $return['status'] = 'success';
                 }else{
