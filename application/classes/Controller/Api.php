@@ -137,6 +137,7 @@ class Controller_Api extends Controller
                 unset($record['id']);
                 $record['name'] = str_replace('"', '\"', $record['name']);//($record['name']));
                 $record['result'] = str_replace('"', '\"', $record['result']);//($record['result']));
+                $record['execut'] = str_replace('"', '\"', $record['execut']);//($record['execut']));
                 if (!empty($record['dt_exc']))
                     $timestamp_must_be = strtotime(str_replace('-', '.', $record['dt_exc']));
                 else
