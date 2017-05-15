@@ -47,7 +47,7 @@ foreach($med_org as $key=>$value){
         person_list: {
             name: 'person_list',
             url: '/api/lpupersonlist',
-            limit: 100,
+            limit: 50,
             method: 'GET', // need this to avoid 412 error on Safari
             header: 'Список пациентов',
             show: {
