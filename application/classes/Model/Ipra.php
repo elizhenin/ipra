@@ -358,9 +358,16 @@ class Model_Ipra extends Model
         $db = $db
             ->execute()
             ->as_array();
-//        if (!empty($db))
+
+        if (!empty($db)){
+            foreach($db as $db_key=>$db_item){
+                foreach($db_item as $item_key=>$item_value){
+                    $db[$db_key][$item_key] = trim($item_value);
+                }
+            }
+        }
+
         return $db;
-//        else return false;
     }
 
     static function GetOnePerson($id, $outgoing = false)
