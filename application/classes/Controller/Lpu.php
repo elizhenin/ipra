@@ -94,4 +94,15 @@ class Controller_Lpu extends Controller_Tmp
         $this->page = $page;
     }
 
+    public function action_medorgcount()
+    {
+        $from = $this->request->query('from');
+        $to = $this->request->query('to');
+        $page = View::factory('stat/medorgcount/index');
+        $page->from = $from;
+        $page->to = $to;
+        $page->med_org = Model_Catalog::GetMedOrg();
+        $page->toolbar_cfg = View::factory('lpu/toolbar');
+        $this->page = $page;
+    }
 }
