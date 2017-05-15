@@ -1045,6 +1045,14 @@ class Model_Ipra extends Model
         $db->group_by('med_org.dicid')
             ->group_by('med_org.name')
             ->order_by('ipracount', 'DESC');
+        {
+            $session = Session::instance();
+            $user = $session->get('user', false);
+            if (('lpu' == $user['rights']) &&
+                (0 < $user['med_org_id'])
+            )
+                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
+        }
         self::slog('prg,med_org,prg_rhb', $db->compile());
         $db = $db
             ->execute()
@@ -1054,7 +1062,7 @@ class Model_Ipra extends Model
             foreach ($db as $key => $value) {
                 if (trim($db[$key]['name']))
                     $db[$key]['name'] = trim($db[$key]['name']);
-                else $db[$key]['name'] = '(не сопоставлено)';
+                else unset($db[$key]);
             }
 
             return $db;
@@ -1089,6 +1097,14 @@ class Model_Ipra extends Model
         }
         $db->group_by('med_org.dicid')
             ->group_by('med_org.name');
+        {
+            $session = Session::instance();
+            $user = $session->get('user', false);
+            if (('lpu' == $user['rights']) &&
+                (0 < $user['med_org_id'])
+            )
+                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
+        }
         self::slog('med_org,prg_rhb', $db->compile());
         $db = $db
             ->execute()
@@ -1129,6 +1145,14 @@ class Model_Ipra extends Model
         $db->group_by('med_org.dicid')
             ->group_by('med_org.name')
             ->order_by('persons', 'DESC');
+        {
+            $session = Session::instance();
+            $user = $session->get('user', false);
+            if (('lpu' == $user['rights']) &&
+                (0 < $user['med_org_id'])
+            )
+                $db->and_where('prg.med_org_id', '=', $user['med_org_id']);
+        }
         self::slog('med_org,prg', $db->compile());
         $db = $db
             ->execute()
