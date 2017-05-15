@@ -39,7 +39,7 @@
             }
 
             if (event.target == 'medorgcount') {
-                location.href = '/stat/medorgcount';
+                location.href = '/lpu/medorgcount';
             }
 
             if (event.target == 'user_name') {
