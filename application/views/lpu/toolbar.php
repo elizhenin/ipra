@@ -19,6 +19,7 @@
 
                 ]
             },
+            {type: 'button', id: 'medorgcount', caption: 'Статистика по организациям', img: 'icon-page'},
             {type: 'spacer'},
             {type: 'break', id: 'break_before_name'},
             {type: 'button', id: 'user_name', caption: '<?=$user['login']?>', hint: 'Сменить пароль'},
@@ -35,6 +36,10 @@
             }
             if (event.target.substr(0, 9) == 'journals:') {
                 location.href = '/lpu/'+event.target.substr(9, event.target.length - 9);
+            }
+
+            if (event.target == 'medorgcount') {
+                location.href = '/stat/medorgcount';
             }
 
             if (event.target == 'user_name') {
