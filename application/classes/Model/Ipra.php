@@ -505,6 +505,14 @@ class Model_Ipra extends Model
         $db = $db
             ->execute()
             ->as_array();
+
+        if (!empty($db)){
+            foreach($db as $db_key=>$db_item){
+                foreach($db_item as $item_key=>$item_value){
+                    $db[$db_key][$item_key] = trim($item_value);
+                }
+            }
+        }
         if (!empty($db)) {
             foreach ($db as $key => $value) {
                 $db[$key]['restxt'] = str_replace('"', '\"', trim($value['restxt']));
