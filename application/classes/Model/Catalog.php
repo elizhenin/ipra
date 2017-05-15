@@ -145,6 +145,13 @@ class Model_Catalog extends Model
             ->execute()
             ->as_array();
         $return = array();
+        if (!empty($db)){
+            foreach($db as $db_key=>$db_item){
+                foreach($db_item as $item_key=>$item_value){
+                    $db[$db_key][$item_key] = trim($item_value);
+                }
+            }
+        }
         if (!empty($db)) {
             foreach ($db as $value) {
                 $return[$value['id']] = $value;
