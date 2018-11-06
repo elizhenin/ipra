@@ -86,7 +86,13 @@ $db = DB::delete('sys_log')
 		$data['fname'] = $Persons[$other_id]['fname'];
 		$other_id = random_int(1, $length_array);
 		$data['sname'] = $Persons[$other_id]['sname'];
-		
+                $data['snils']  = random_int(0, 9);$data['snils'] .= random_int(0, 9);$data['snils'] .= random_int(0, 9);
+                $data['snils'] .= '-';
+                $data['snils'] .= random_int(0, 9);$data['snils'] .= random_int(0, 9);$data['snils'] .= random_int(0, 9);
+                $data['snils'] .= '-';
+                $data['snils'] .= random_int(0, 9);$data['snils'] .= random_int(0, 9);$data['snils'] .= random_int(0, 9);
+                $data['snils'] .= ' ';
+                $data['snils'] .= random_int(0, 9);$data['snils'] .= random_int(0, 9);
 		$db = DB::update('prg0')
                 ->set($data)
                 ->where('id', '=', $data['id']);
