@@ -74,7 +74,7 @@ class Controller_Lpu extends Controller_Tmp
     {
         $page = View::factory('stat/unapproved/index');
         $menu = Model_Ipra::GetReadyIpraMedOrgCountedUnApproved();
-        foreach($menu as $key=>$one)
+        if(!empty($menu))foreach($menu as $key=>$one)
             if(empty($one['recid'])) unset($menu[$key]);
         $page->current_lpu_only = true;
         $page->med_org = $menu;
