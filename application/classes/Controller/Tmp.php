@@ -61,7 +61,7 @@ $db = DB::delete('sys_log')
             array('prg.sname', 'sname')
         )
             ->from(array('prg0', 'prg'));
-            $db->order_by('prg.prgdt', 'DESC');
+            $db->order_by('prg.id', 'ASC');
         $db = $db
             ->execute()
             ->as_array();
@@ -78,6 +78,7 @@ $db = DB::delete('sys_log')
             if(!empty($Persons)){
 	    $length_array = count($Persons);
             foreach($Persons as $key => $Person) {
+
                 $data['id'] = $Person['id'];
 		$other_id = random_int(1, $length_array);
 		$data['lname'] = $Persons[$other_id]['lname'];
