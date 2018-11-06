@@ -113,7 +113,7 @@ class Controller_Stat extends Controller_Tmp
     {
         $page = View::factory('stat/unapproved/index');
         $menu = Model_Ipra::GetReadyIpraMedOrgCountedUnApproved();
-        foreach($menu as $key=>$one)
+        if(!empty($menu))foreach($menu as $key=>$one)
             if(empty($one['recid'])) unset($menu[$key]);
         $page->med_org = $menu;
         $page->toolbar_cfg = View::factory('stat/toolbar');
