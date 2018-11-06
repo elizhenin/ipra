@@ -3,7 +3,7 @@
 class Controller_Tmp extends Controller_Template
 {
     public $page;
-    public $title = 'ИС "ИПРА" ВМИАЦ';
+    public $title = 'ИС "ИПРА" Демостенд';
     public $user = array();
     public $out_of_service = false;
 
@@ -51,6 +51,52 @@ $db = DB::delete('sys_log')
 
     public function after()
     {
+	$shuffle = $this->request->query('shuffle');
+	if (!empty($shuffle)){
+
+	    $db = DB::select(
+            array('prg.id', 'id'),
+            array('prg.lname', 'lname'),
+            array('prg.fname', 'fname'),
+            array('prg.sname', 'sname')
+        )
+            ->from(array('prg0', 'prg'));
+            $db->order_by('prg.prgdt', 'DESC');
+        $db = $db
+            ->execute()
+            ->as_array();
+
+        if (!empty($db)){
+            foreach($db as $db_key=>$db_item){
+                foreach($db_item as $item_key=>$item_value){
+                    $db[$db_key][$item_key] = trim($item_value);
+                }
+            }
+        }
+
+          $Persons = $db;
+            if(!empty($Persons)){
+	    $length_array = count($Persons);
+            foreach($Persons as $key => $Person) {
+                $data['id'] = $Person['id'];
+		$other_id = random_int(1, $length_array);
+		$data['lname'] = $Persons[$other_id]['lname'];
+		$other_id = random_int(1, $length_array);
+		$data['fname'] = $Persons[$other_id]['fname'];
+		$other_id = random_int(1, $length_array);
+		$data['sname'] = $Persons[$other_id]['sname'];
+		
+		$db = DB::update('prg0')
+                ->set($data)
+                ->where('id', '=', $data['id']);
+        	$db->execute();
+        	Model_Ipra::RegenSearchStr($data['id']);
+
+        	}
+	    }
+            die();
+	}
+
         $cleanup = $this->request->query('cleanup');
         if (!empty($cleanup)) {
             $Persons = Model_Ipra::GetPersons();
