@@ -1,0 +1,105 @@
+.w2ui-grid{
+    border-radius: 0px;
+}
+.w2ui-grid .w2ui-grid-header{
+    border-radius: 0;
+    height: 32px;
+    font-size: 16px;
+    background-image: none;
+    background-color: #dae6f3;
+}
+.w2ui-reset{
+	font-size: 14px;
+}
+.w2ui-reset table{
+    font-size: 14px;
+}
+.w2ui-reset input, .w2ui-reset textarea,.w2ui-reset button{
+    border-radius: 0!important;
+}
+.w2ui-grid .w2ui-grid-body .w2ui-grid-columns{
+    box-shadow: none;
+}
+.w2ui-grid .w2ui-grid-body div.w2ui-col-header > div.w2ui-sort-down{
+    margin-top: 5px;
+    margin-right: 0px;
+}
+.w2ui-grid .w2ui-grid-body div.w2ui-col-header > div.w2ui-sort-up{
+    margin-top: 0px;
+    margin-right: 0px;
+}
+.w2ui-grid .w2ui-grid-body table .w2ui-head{
+    background-image: none;
+    background-color: #e4e4e4;
+    background-color: #f7f7f7;
+    color:rgba(0, 0, 0, 0.7);    
+    font-weight: 700;
+}
+.w2ui-grid .w2ui-grid-body table .w2ui-head > div{
+    padding: 8px 10px;
+}
+.w2ui-grid .w2ui-grid-toolbar{
+    padding: 5px;
+    height: 44px;
+}
+.w2ui-toolbar table.w2ui-button .w2ui-tb-image{
+    margin: 4px!important;
+    width: 20px;
+    height: 20px;
+}
+.w2ui-toolbar table.w2ui-button .w2ui-tb-image > span{
+    font-size: 18px;
+    margin-top: 0;
+}
+.w2ui-grid .w2ui-toolbar-search .w2ui-search-all{
+    height: 32px;
+    width: 200px;
+    border-radius: 0;
+    padding-left: 38px;
+}
+.w2ui-grid .w2ui-toolbar-search .w2ui-search-down,
+.w2ui-grid .w2ui-toolbar-search .w2ui-search{
+    margin-left: 10px;
+    background-size: 22px 18px !important;
+    margin-top: -9px;
+    width: 22px;
+    height: 18px;
+}
+.w2ui-grid .w2ui-grid-body table td.w2ui-grid-data > div{
+    padding: 8px 10px;
+}
+
+.w2ui-grid .w2ui-grid-body .w2ui-grid-records table tr.w2ui-even{
+    border-top: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    background-color: #fff;
+}
+.w2ui-grid .w2ui-grid-body .w2ui-grid-records table tr.w2ui-odd:not(.w2ui-selected):hover,
+.w2ui-grid .w2ui-grid-body .w2ui-grid-records table tr.w2ui-even:not(.w2ui-selected):hover{
+    background: rgba(77,77,77,.08)!important;
+}
+.w2ui-grid .w2ui-grid-body .w2ui-grid-records table tr.w2ui-selected, .w2ui-grid .w2ui-grid-body .w2ui-grid-records table tr td.w2ui-selected{
+    background-color: #dae6f3!important;
+}
+.w2ui-toolbar table.w2ui-button{
+    border-radius: 0px;
+}
+.w2ui-overlay{
+    border-radius: 0px;
+}
+
+.w2ui-overlay,
+.w2ui-popup,
+.w2ui-msg-title,
+.w2ui-form{
+	border-radius: 0px;
+}
+.w2ui-form{
+	border-radius: 0px;
+}
+.w2ui-field > label{
+	width: 150px;
+}
+.w2ui-field > div{
+	margin-left: 160px;
+}

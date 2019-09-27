@@ -3,6 +3,7 @@
 <head>
     <title><?= $title ?></title>
     <link rel="stylesheet" type="text/css" href="/css/w2ui-1.4.3.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/w2ui-custom.css"/>
     <script src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/w2ui-1.4.3.js"></script>
     <script type="text/javascript" src="/js/filesaver.js"></script>
