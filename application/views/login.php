@@ -55,8 +55,8 @@
             title: 'Вход в систему',
             body: '<div id="form" style="width: 100%; height: 100%;"></div>',
             style: 'padding: 15px 0px 0px 0px',
-            width: 400,
-            height: 200,
+            width: 450,
+            height: 220,
             showMax: true,
             onToggle: function (event) {
                 $(w2ui.login.box).hide();
